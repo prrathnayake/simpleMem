@@ -3,12 +3,12 @@
 This system exists purely for **the coding agent** to persist its intelligence context securely across sessions without destroying its context window limits.
 
 You are treating this repository as a Graph Data-Structure.
-`AGENTS.md` -> `_agent_rules.md` -> `project_state.md` -> `YYYY-MM-DD/`
+`AGENTS.md` -> `_agent_rules.md` -> `system_prompt.md` -> `daily_summary.md` -> `project_state.md` -> `YYYY-MM-DD/`
 
 ## Start of Task Checklist
 1. **Mandatory Load:** Trace from `AGENTS.md` and read `_agent_rules.md` (this file). 
 2. **State Load:** Read `project_state.md` to see stable facts and active threads.
-3. **Daily Hub Creation:** If an `.agent_memories/YYYY-MM-DD/` folder for today does not exist, create it.
+3. **Daily Hub Creation:** If an `.codex_memories/YYYY-MM-DD/` folder for today does not exist, create it.
 4. **Session Revival:** On the *first task of a new day*, read yesterday's folder. Write a `revival_summary.md` inside *today's* folder to bootstrap context.
 
 ## Navigation & Work Logic

@@ -14,7 +14,7 @@ Every file and folder created by this protocol is constructed solely to empower 
 ## Separation of Concerns
 - **`AGENTS.md`**: The absolute entrypoint. Agents read this first to discover the protocol.
 - **`ARCHITECTURE.md` & `DESIGN.md`**: These files belong to the **working project** (e.g. the video engineering app architecture and UI layout). They do NOT track Agent memory mechanics.
-- **`.agent_memories/YYYY-MM-DD/`**: Rather than infinitely appending to a master root file, all user-agent conversations (`message_pairs.md`), task journals (`task_log.md`), and end-of-day aggregates (`end_of_day_summary.md`) are hard-isolated into the folder corresponding to the timestamp of the task.
+- **`.codex_memories/YYYY-MM-DD/`**: Rather than infinitely appending to a master root file, all user-agent conversations (`message_pairs.md`), task journals (`task_log.md`), and end-of-day aggregates (`end_of_day_summary.md`) are hard-isolated into the folder corresponding to the timestamp of the task.
 
 ## Bootstrap It!
 ```powershell
