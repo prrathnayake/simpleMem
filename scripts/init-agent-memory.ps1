@@ -64,6 +64,44 @@ function Ensure-File {
 
 Write-BootstrapLog "Starting SimpleMem bootstrap..." -Level "INFO"
 
+function Test-ProtocolConsistency {
+    $issues = @()
+    
+    if (Test-Path "AGENTS.md") {
+        $agentsContent = Get-Content "AGENTS.md" -Raw
+        if ($agentsContent -notmatch '\.codex_memories/') {
+            $issues += "AGENTS.md does not reference .codex_memories/"
+        }
+    } else {
+        $issues += "AGENTS.md not found"
+    }
+    
+    if (Test-Path ".agent_memories") {
+        $issues += "Found legacy root .agent_memories/. This repo uses .codex_memories/ only."
+    }
+    
+    if (Test-Path "$MemoryRoot/_agent_rules.md") {
+        $rulesContent = Get-Content "$MemoryRoot/_agent_rules.md" -Raw
+        if ($rulesContent -match '\.agent_memories/') {
+            $issues += "_agent_rules.md still references .agent_memories/"
+        }
+    }
+    
+    if ($issues.Count -gt 0) {
+        Write-BootstrapLog "Protocol consistency issues detected:" -Level "WARN"
+        foreach ($issue in $issues) {
+            Write-BootstrapLog "  - $issue" -Level "WARN"
+        }
+        return $false
+    }
+    return $true
+}
+
+$protocolOk = Test-ProtocolConsistency
+if (-not $protocolOk) {
+    Write-BootstrapLog "Continuing anyway - bootstrap will fix most issues." -Level "INFO"
+}
+
 Ensure-Directory $MemoryRoot
 
 $sysPromptContent = @"

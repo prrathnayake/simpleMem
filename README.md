@@ -11,6 +11,21 @@ When an agent connects to the project, it executes the following path:
 
 Every file and folder created by this protocol is constructed solely to empower the agent to pick up where it left off.
 
+## Canonical Protocol
+
+Memory root: `.codex_memories/`
+
+Agent startup order:
+1. `AGENTS.md`
+2. `.codex_memories/_agent_rules.md`
+3. `.codex_memories/project_state.md`
+4. `.codex_memories/system_prompt.md`
+5. `.codex_memories/daily_summary.md`
+6. `.codex_memories/YYYY-MM-DD/revival_summary.md`
+7. `.codex_memories/YYYY-MM-DD/task_log.md`
+
+**If any other file disagrees with this section, this section wins.**
+
 ## Separation of Concerns
 - **`AGENTS.md`**: The absolute entrypoint. Agents read this first to discover the protocol.
 - **`ARCHITECTURE.md` & `DESIGN.md`**: These files belong to the **working project** (e.g. the video engineering app architecture and UI layout). They do NOT track Agent memory mechanics.
