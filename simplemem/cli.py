@@ -2,7 +2,6 @@
 """SimpleMem CLI - One-command agent memory system initialization."""
 
 import argparse
-import os
 import sys
 from datetime import date
 from pathlib import Path
@@ -40,7 +39,7 @@ def ensure_file(path: Path, content: str = "") -> bool:
 
 def init_memory(root: Path, force: bool = False, full: bool = True) -> None:
     today = get_today()
-    log(f"Starting SimpleMem bootstrap...")
+    log("Starting SimpleMem bootstrap...")
     log(f"Memory root: {MEMORY_ROOT}")
     log(f"Today: {today}")
 
@@ -265,7 +264,7 @@ _(What tomorrow should pick up)_
         if ensure_file(path, content):
             files_created.append(f"{today}/{filename}")
 
-    log(f"Bootstrap complete.")
+    log("Bootstrap complete.")
     log(f"Files created: {len(files_created)}")
     if files_created:
         for f in files_created:
@@ -295,7 +294,12 @@ def validate_memory(root: Path) -> bool:
     if not today_folder.exists():
         issues.append(f"Today's folder missing: {today}")
     else:
-        required_daily = ["task_log.md", "message_pairs.md", "revival_summary.md", "end_of_day_summary.md"]
+        required_daily = [
+            "task_log.md",
+            "message_pairs.md",
+            "revival_summary.md",
+            "end_of_day_summary.md",
+        ]
         for f in required_daily:
             if not (today_folder / f).exists():
                 issues.append(f"Daily file missing: {f}")
@@ -311,15 +315,14 @@ def validate_memory(root: Path) -> bool:
 
 def main() -> int:
     parser = argparse.ArgumentParser(
-        prog="simplemem",
-        description="SimpleMem - One-command agent memory system initialization"
+        prog="simplemem", description="SimpleMem - One-command agent memory system initialization"
     )
     subparsers = parser.add_subparsers(dest="command", required=True)
 
     init_parser = subparsers.add_parser("init", help="Initialize memory system")
     init_parser.add_argument("--force", action="store_true", help="Overwrite existing files")
 
-    validate_parser = subparsers.add_parser("validate", help="Validate memory system")
+    subparsers.add_parser("validate", help="Validate memory system")
 
     args = parser.parse_args()
 

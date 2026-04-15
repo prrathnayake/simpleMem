@@ -1,5 +1,5 @@
 # Directory: scripts
 | File | Purpose / Summary |
 | --- | --- |
-| `init-agent-memory.ps1` | PowerShell script used to rapidly scaffold the `.codex_memories` system into a new repository. |
+| `init-agent-memory.ps1` | Legacy PowerShell script. Use `simplemem` Python package instead. |
 | `folder_map.md` | This file - gives the agent file visibility. |
