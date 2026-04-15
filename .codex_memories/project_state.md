@@ -2,6 +2,8 @@
 
 Stable facts and active threads for this project.
 
+Keep this file compact. Durable facts belong here; long narratives do not.
+
 ## STABLE FACTS
 project_name: ""
 project_focus: ""
@@ -11,4 +13,4 @@ architecture: ""
 active_threads: {}
 
 ## NOTES
-_(Add project-specific notes here)_
+_(Only durable, project-wide notes. Put task detail in dated files.)_

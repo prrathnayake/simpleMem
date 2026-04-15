@@ -12,7 +12,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$MemoryRoot = ".codex_memories"
+$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+$MemoryRoot = Join-Path $RepoRoot ".codex_memories"
 $Today = Get-Date -Format "yyyy-MM-dd"
 
 function Write-BootstrapLog {
@@ -67,8 +68,9 @@ Write-BootstrapLog "Starting SimpleMem bootstrap..." -Level "INFO"
 function Test-ProtocolConsistency {
     $issues = @()
     
-    if (Test-Path "AGENTS.md") {
-        $agentsContent = Get-Content "AGENTS.md" -Raw
+    $agentsPath = Join-Path $RepoRoot "AGENTS.md"
+    if (Test-Path $agentsPath) {
+        $agentsContent = Get-Content $agentsPath -Raw
         if ($agentsContent -notmatch '\.codex_memories/') {
             $issues += "AGENTS.md does not reference .codex_memories/"
         }
@@ -76,7 +78,7 @@ function Test-ProtocolConsistency {
         $issues += "AGENTS.md not found"
     }
     
-    if (Test-Path ".agent_memories") {
+    if (Test-Path (Join-Path $RepoRoot ".agent_memories")) {
         $issues += "Found legacy root .agent_memories/. This repo uses .codex_memories/ only."
     }
     
@@ -114,38 +116,46 @@ Compact operating protocol for coding agents in this repository.
 - Use `.codex_memories/` as the memory root
 - Create date folders for daily isolation
 - Keep memory files separated by concern
+- Prefer small files over large logs
+- Read artifact files only when the indexes are insufficient
 
 ## File Locations
 - `_agent_rules.md` - Core memory engine
 - `project_state.md` - Stable project facts
 - `system_prompt.md` - This file
-- `daily_summary.md` - Rolling state
-- `message_pairs.md` - Conversation log
+- `daily_summary.md` - Rolling recent index
+- `YYYY-MM-DD/message_pairs.md` - Daily conversation index
+- `YYYY-MM-DD/artifacts/` - Request-level or concern-level detail
 - `YYYY-MM-DD/` - Daily folders
 "@
 
 $dailySummaryContent = @"
 # Daily Summary
 
-Rolling state for the current working day.
+Rolling recent index for active work only.
+
+## Format Rules
+- Keep this file short enough to scan in one read.
+- Use one bullet per task or change.
+- Move detailed debugging, research, or verification into dated artifact files.
+- Remove or archive stale bullets instead of letting this file grow.
 
 ## Active Tasks
-_(List current in-progress tasks here)_
-
-## Recent Completions
-_(List recently completed tasks here)_
+_(Short bullets only)_
 
 ## Blockers
-_(List current blockers here)_
+_(Short bullets only)_
 
-## Notes
-_(Additional notes for today's session)_
+## Recent Completions
+_(Short bullets only)_
 "@
 
 $projectStateContent = @"
 # Project State & Active Context
 
 Stable facts and active threads for this project.
+
+Keep this file compact. Durable facts belong here; long narratives do not.
 
 ## STABLE FACTS
 project_name: ""
@@ -156,34 +166,54 @@ architecture: ""
 active_threads: {}
 
 ## NOTES
-_(Add project-specific notes here)_
+_(Only durable, project-wide notes. Put task detail in dated files.)_
+"@
+
+$folderMapContent = @"
+# Directory: .codex_memories
+
+| File | Purpose |
+| --- | --- |
+| _agent_rules.md | Core memory engine |
+| system_prompt.md | Operating protocol |
+| daily_summary.md | Rolling recent index |
+| project_state.md | Stable facts |
+| YYYY-MM-DD/message_pairs.md | Daily conversation index |
+| YYYY-MM-DD/artifacts/ | Request-level detail |
+| folder_map.md | This file |
+| YYYY-MM-DD/ | Daily folders |
 "@
 
 Ensure-File -Path "$MemoryRoot/_agent_rules.md" -SkipIfExists
 Ensure-File -Path "$MemoryRoot/system_prompt.md" -Content $sysPromptContent -SkipIfExists
 Ensure-File -Path "$MemoryRoot/daily_summary.md" -Content $dailySummaryContent -SkipIfExists
 Ensure-File -Path "$MemoryRoot/project_state.md" -Content $projectStateContent -SkipIfExists
-Ensure-File -Path "$MemoryRoot/folder_map.md" -SkipIfExists
+Ensure-File -Path "$MemoryRoot/folder_map.md" -Content $folderMapContent -SkipIfExists
 
 $todayFolder = "$MemoryRoot/$Today"
 Ensure-Directory $todayFolder
+Ensure-Directory "$todayFolder/artifacts"
 
 $taskLogContent = @"
 # Task Log: $Today
 
-Timestamped task entries for this day.
+Timestamped high-signal task entries for this day.
 
-| Timestamp | Status | Summary | Files Touched | Blockers |
-| --- | --- | --- | --- | --- |
+Keep rows concise. If a topic needs more detail, create an artifact file and reference it.
+
+| Timestamp | Status | Summary | Files Touched | Blockers | Artifact |
+| --- | --- | --- | --- | --- | --- |
 "@
 
 $messagePairsContent = @"
 # Message Pairs: $Today
 
-Exact user messages and concise assistant responses.
+Compact daily index of user requests and assistant outcomes.
 
-| Timestamp | User Message | Assistant Summary |
-| --- | --- | --- |
+If the exact prompt is long, store it in an artifact file and reference it here.
+
+| Timestamp | Request ID | User Intent | Assistant Summary | Artifact |
+| --- | --- | --- | --- | --- |
 "@
 
 $revivalContent = @"
@@ -220,11 +250,12 @@ Ensure-File -Path "$todayFolder/task_log.md" -Content $taskLogContent -SkipIfExi
 Ensure-File -Path "$todayFolder/message_pairs.md" -Content $messagePairsContent -SkipIfExists
 Ensure-File -Path "$todayFolder/revival_summary.md" -Content $revivalContent -SkipIfExists
 Ensure-File -Path "$todayFolder/end_of_day_summary.md" -Content $endOfDayContent -SkipIfExists
+Ensure-File -Path "$todayFolder/artifacts/.gitkeep" -SkipIfExists
 
 Write-BootstrapLog "Bootstrap complete." -Level "INFO"
 Write-BootstrapLog "Memory root: $MemoryRoot" -Level "INFO"
 Write-BootstrapLog "Today: $Today" -Level "INFO"
 
-if (-not (Test-Path "AGENTS.md")) {
+if (-not (Test-Path (Join-Path $RepoRoot "AGENTS.md"))) {
     Write-BootstrapLog "WARNING: AGENTS.md not found. Create it to define project rules." -Level "WARN"
 }

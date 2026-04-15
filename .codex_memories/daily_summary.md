@@ -1,15 +1,18 @@
 # Daily Summary
 
-Rolling state for the current working day.
+Rolling recent index for active work only.
+
+## Format Rules
+- Keep this file short enough to scan in one read.
+- Use one bullet per task or change.
+- Move detailed debugging, research, or verification into dated artifact files.
+- Remove or archive stale bullets instead of letting this file grow.
 
 ## Active Tasks
-_(List current in-progress tasks here)_
-
-## Recent Completions
-_(List recently completed tasks here)_
+_(Short bullets only)_
 
 ## Blockers
-_(List current blockers here)_
+_(Short bullets only)_
 
-## Notes
-_(Additional notes for today's session)_
+## Recent Completions
+_(Short bullets only)_

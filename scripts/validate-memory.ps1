@@ -16,7 +16,8 @@ param(
 )
 
 $ErrorActionPreference = "Stop"
-$MemoryRoot = ".codex_memories"
+$RepoRoot = (Resolve-Path (Join-Path $PSScriptRoot "..")).Path
+$MemoryRoot = Join-Path $RepoRoot ".codex_memories"
 $Today = Get-Date -Format "yyyy-MM-dd"
 $Issues = @()
 
@@ -53,7 +54,7 @@ if ($rootExists) {
 }
 
 Write-Validation "=== Checking Split-Brain ===" "INFO"
-if (Test-Path ".agent_memories") {
+if (Test-Path (Join-Path $RepoRoot ".agent_memories")) {
     Write-Validation "SPLIT-BRAIN: Both .agent_memories/ and $MemoryRoot/ exist!" "ERROR"
     if ($Fix) {
         Write-Validation "Remove .agent_memories/ to resolve" "INFO"
@@ -70,7 +71,7 @@ $coreFiles = @(
 )
 
 foreach ($file in $coreFiles) {
-    Test-PathAndWarn -Path $file -RequiredMessage "Core file"
+    $null = Test-PathAndWarn -Path $file -RequiredMessage "Core file"
 }
 
 Write-Validation "=== Checking Today's Folder ===" "INFO"
@@ -82,11 +83,12 @@ if (Test-Path $todayFolder) {
         "$todayFolder/task_log.md",
         "$todayFolder/message_pairs.md",
         "$todayFolder/revival_summary.md",
-        "$todayFolder/end_of_day_summary.md"
+        "$todayFolder/end_of_day_summary.md",
+        "$todayFolder/artifacts"
     )
     
     foreach ($file in $dailyFiles) {
-        Test-PathAndWarn -Path $file -RequiredMessage "Daily file"
+        $null = Test-PathAndWarn -Path $file -RequiredMessage "Daily file"
     }
 } else {
     Write-Validation "Today's folder not found: $todayFolder" "ERROR"

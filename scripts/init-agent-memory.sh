@@ -11,7 +11,9 @@
 
 set -e
 
-MEMORY_ROOT=".codex_memories"
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+REPO_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+MEMORY_ROOT="$REPO_ROOT/.codex_memories"
 TODAY=$(date +%Y-%m-%d)
 FORCE=false
 VERBOSE=false
@@ -89,36 +91,44 @@ Compact operating protocol for coding agents in this repository.
 - Use `.codex_memories/` as the memory root
 - Create date folders for daily isolation
 - Keep memory files separated by concern
+- Prefer small files over large logs
+- Read artifact files only when the indexes are insufficient
 
 ## File Locations
 - `_agent_rules.md` - Core memory engine
 - `project_state.md` - Stable project facts
 - `system_prompt.md` - This file
-- `daily_summary.md` - Rolling state
-- `message_pairs.md` - Conversation log
+- `daily_summary.md` - Rolling recent index
+- `YYYY-MM-DD/message_pairs.md` - Daily conversation index
+- `YYYY-MM-DD/artifacts/` - Request-level or concern-level detail
 - `YYYY-MM-DD/` - Daily folders
 '
 
 DAILY_SUMMARY_CONTENT='# Daily Summary
 
-Rolling state for the current working day.
+Rolling recent index for active work only.
+
+## Format Rules
+- Keep this file short enough to scan in one read.
+- Use one bullet per task or change.
+- Move detailed debugging, research, or verification into dated artifact files.
+- Remove or archive stale bullets instead of letting this file grow.
 
 ## Active Tasks
-_(List current in-progress tasks here)_
-
-## Recent Completions
-_(List recently completed tasks here)_
+_(Short bullets only)_
 
 ## Blockers
-_(List current blockers here)_
+_(Short bullets only)_
 
-## Notes
-_(Additional notes for today'"'"'s session)_
+## Recent Completions
+_(Short bullets only)_
 '
 
 PROJECT_STATE_CONTENT='# Project State & Active Context
 
 Stable facts and active threads for this project.
+
+Keep this file compact. Durable facts belong here; long narratives do not.
 
 ## STABLE FACTS
 project_name: ""
@@ -129,7 +139,7 @@ architecture: ""
 active_threads: {}
 
 ## NOTES
-_(Add project-specific notes here)_
+_(Only durable, project-wide notes. Put task detail in dated files.)_
 '
 
 FOLDER_MAP_CONTENT='# Directory: .codex_memories
@@ -138,9 +148,10 @@ FOLDER_MAP_CONTENT='# Directory: .codex_memories
 | --- | --- |
 | _agent_rules.md | Core memory engine |
 | system_prompt.md | Operating protocol |
-| daily_summary.md | Rolling state |
+| daily_summary.md | Rolling recent index |
 | project_state.md | Stable facts |
-| message_pairs.md | Conversation log |
+| YYYY-MM-DD/message_pairs.md | Daily conversation index |
+| YYYY-MM-DD/artifacts/ | Request-level detail |
 | folder_map.md | This file |
 | YYYY-MM-DD/ | Daily folders |
 '
@@ -153,17 +164,26 @@ ensure_file "$MEMORY_ROOT/folder_map.md" "$FOLDER_MAP_CONTENT"
 
 TODAY_DIR="$MEMORY_ROOT/$TODAY"
 ensure_dir "$TODAY_DIR"
+ensure_dir "$TODAY_DIR/artifacts"
 
 TASK_LOG_CONTENT="# Task Log: $TODAY
 
-| Timestamp | Status | Summary | Files Touched | Blockers |
-| --- | --- | --- | --- | --- |
+Timestamped high-signal task entries for this day.
+
+Keep rows concise. If a topic needs more detail, create an artifact file and reference it.
+
+| Timestamp | Status | Summary | Files Touched | Blockers | Artifact |
+| --- | --- | --- | --- | --- | --- |
 "
 
 MESSAGE_PAIRS_CONTENT="# Message Pairs: $TODAY
 
-| Timestamp | User Message | Assistant Summary |
-| --- | --- | --- |
+Compact daily index of user requests and assistant outcomes.
+
+If the exact prompt is long, store it in an artifact file and reference it here.
+
+| Timestamp | Request ID | User Intent | Assistant Summary | Artifact |
+| --- | --- | --- | --- | --- |
 "
 
 REVIVAL_CONTENT="# Revival Summary
@@ -198,12 +218,13 @@ ensure_file "$TODAY_DIR/task_log.md" "$TASK_LOG_CONTENT"
 ensure_file "$TODAY_DIR/message_pairs.md" "$MESSAGE_PAIRS_CONTENT"
 ensure_file "$TODAY_DIR/revival_summary.md" "$REVIVAL_CONTENT"
 ensure_file "$TODAY_DIR/end_of_day_summary.md" "$END_OF_DAY_CONTENT"
+ensure_file "$TODAY_DIR/artifacts/.gitkeep" ""
 
 log "INFO" "Bootstrap complete."
 log "INFO" "Memory root: $MEMORY_ROOT"
 log "INFO" "Today: $TODAY"
 
-if [[ ! -f "AGENTS.md" ]]; then
+if [[ ! -f "$REPO_ROOT/AGENTS.md" ]]; then
     log "WARN" "AGENTS.md not found. Create it to define project rules."
 fi
 

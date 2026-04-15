@@ -1,8 +1,13 @@
 # SimpleMem: The File-System Agent Graph
 
-SimpleMem treats repository memories as an executable graph explicitly targeted at **Coding Agents** (like Codex or Antigravity).
+SimpleMem treats repository memories as an executable graph explicitly targeted at coding agents.
 
-Instead of maintaining brittle, massive context logs universally, the agent's memory mechanics traverse explicitly connected nodes down into date-segregated namespaces.
+Instead of maintaining brittle, massive context logs, the memory graph stays intentionally small:
+
+- root files are short indexes
+- daily folders isolate current work
+- `artifacts/` holds one small file per request or concern when detail is needed
+- large prompts or long investigations are referenced, not copied into every summary file
 
 ## Installation
 
@@ -16,7 +21,7 @@ pip install simplemem
 simplemem init
 ```
 
-That's it. Creates all memory files in `.codex_memories/`.
+That bootstraps a small-file memory system in `.codex_memories/`.
 
 ## The Reading Graph
 
@@ -39,6 +44,14 @@ Agent startup order:
 
 **If any other file disagrees with this section, this section wins.**
 
+## Small-File Rules
+
+- Keep `project_state.md`, `system_prompt.md`, and `daily_summary.md` brief enough to reread quickly.
+- Put detailed research, debugging, and verification into `.codex_memories/YYYY-MM-DD/artifacts/`.
+- Keep `message_pairs.md` as a compact index. If a prompt is long, store the full request in an artifact and reference it.
+- Split by concern before a file becomes a general-purpose dump.
+- Optimize for future retrieval accuracy, not human diary completeness.
+
 ## Separation of Concerns
 - **`AGENTS.md`**: The absolute entrypoint. Agents read this first to discover the protocol.
 - **`ARCHITECTURE.md` & `DESIGN.md`**: These files belong to the **working project**. They do NOT track Agent memory mechanics.
@@ -51,9 +64,9 @@ simplemem init          # Initialize memory system (idempotent)
 simplemem validate    # Validate memory system integrity
 ```
 
-## Legacy Scripts
+## Scripts
 
-The `scripts/` directory contains legacy PowerShell/bash scripts. The Python package is the recommended approach.
+The `scripts/` directory contains PowerShell and shell helpers that follow the same protocol as the Python package.
 
 ## Development
 

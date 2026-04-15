@@ -64,6 +64,18 @@ Before doing substantive work, always read these in order:
 Write all reusable session memory only under `.codex_memories/`.
 Do not create or use any alternate memory root.
 
+## Small-File Protocol
+
+This repo is optimized for higher-accuracy memory retrieval with small files.
+
+- Keep root memory files short and index-like.
+- Prefer one concern per file.
+- Prefer one request artifact per request, investigation, or verification thread.
+- If a file starts becoming narrative, split it into smaller sibling files.
+- Use `.codex_memories/YYYY-MM-DD/artifacts/` for detail that does not belong in the daily index files.
+- Keep `message_pairs.md` concise. If the exact user request is long, store the full request in an artifact file and reference it from the daily message index.
+- Keep `daily_summary.md` as a rolling recent index, not a transcript.
+
 ## Project Identity
 
 _(Project name and description - fill in for your project)_
@@ -134,16 +146,19 @@ AGENTS.md -> .codex_memories/_agent_rules.md -> .codex_memories/project_state.md
 3. **Protocol Load:** Read `.codex_memories/system_prompt.md` and `.codex_memories/daily_summary.md`.
 4. **Daily Hub Creation:** If a `.codex_memories/YYYY-MM-DD/` folder for today does not exist, create it.
 5. **Session Revival:** On the *first task of a new day*, read yesterday's folder. Write a `revival_summary.md` inside *today's* folder to bootstrap context.
+6. **Detail Budget:** Load artifact files only when the daily index files are not enough. Do not read entire history by default.
 
 ## Navigation & Work Logic
-6. **Architectural Guardrails:** Target project architecture is in `/ARCHITECTURE.md` and UI design is in `/DESIGN.md`. Do NOT use these files for your AI engine memory. They are strictly for the application you are building.
-7. **Dynamic Discovery:** Whenever you enter a code directory, look for a `folder_map.md`. If missing, generate one so future agents can parse the directory structure without reading every dense codebase file.
+7. **Architectural Guardrails:** Target project architecture is in `/ARCHITECTURE.md` and UI design is in `/DESIGN.md`. Do NOT use these files for your AI engine memory. They are strictly for the application you are building.
+8. **Dynamic Discovery:** Whenever you enter a code directory, look for a `folder_map.md`. If missing, generate one so future agents can parse the directory structure without reading every dense codebase file.
+9. **Small-File Rule:** Root files stay compact. Prefer one concern per file and create small files under `.codex_memories/YYYY-MM-DD/artifacts/` for detailed debugging, verification, migrations, or long requests.
 
 ## End of Task Checklist
-8. **Conversations:** Inside today's `YYYY-MM-DD/` folder, create or append to `message_pairs.md`. Log the exact user prompt and a tight summary of your final response.
-9. **Task Log:** Inside today's `YYYY-MM-DD/` folder, create or append to `task_log.md`. Log what specifically you coded, debugged, and any blockers hit during this run.
-10. **Final Summarization:** Maintain an `end_of_day_summary.md` in today's folder. When wrapping up your shift, aggregate your task logs into this file so tomorrow's agent can read it quickly.
-11. **State Update:** Update your specific agent thread in `.codex_memories/project_state.md`.
+10. **Conversations:** Inside today's `YYYY-MM-DD/` folder, create or append to `message_pairs.md`. Keep it concise. If the exact user prompt is long, store it in an artifact file and reference it from `message_pairs.md`.
+11. **Task Log:** Inside today's `YYYY-MM-DD/` folder, create or append to `task_log.md`. Log only the high-signal summary of what was coded, debugged, and blocked during this run.
+12. **Final Summarization:** Maintain an `end_of_day_summary.md` in today's folder. Keep it short and action-oriented so tomorrow's agent can scan it quickly.
+13. **State Update:** Update your specific agent thread in `.codex_memories/project_state.md`.
+14. **Split Early:** If any memory file starts to sprawl, split it into a new artifact file instead of continuing to append.
 
 ## Memory Root
 - Write all reusable session memory only under `.codex_memories/`.
@@ -158,34 +173,42 @@ Compact operating protocol for coding agents in this repository.
 - Use `.codex_memories/` as the memory root
 - Create date folders for daily isolation
 - Keep memory files separated by concern
+- Prefer small files over large logs
+- Read artifact files only when the indexes are insufficient
 
 ## File Locations
 - `_agent_rules.md` - Core memory engine
 - `project_state.md` - Stable project facts
 - `system_prompt.md` - This file
-- `daily_summary.md` - Rolling state
-- `message_pairs.md` - Conversation log
+- `daily_summary.md` - Rolling recent index
+- `YYYY-MM-DD/message_pairs.md` - Daily conversation index
+- `YYYY-MM-DD/artifacts/` - Request-level or concern-level detail
 - `YYYY-MM-DD/` - Daily folders
 """,
         "daily_summary.md": """# Daily Summary
 
-Rolling state for the current working day.
+Rolling recent index for active work only.
+
+## Format Rules
+- Keep this file short enough to scan in one read.
+- Use one bullet per task or change.
+- Move detailed debugging, research, or verification into dated artifact files.
+- Remove or archive stale bullets instead of letting this file grow.
 
 ## Active Tasks
-_(List current in-progress tasks here)_
-
-## Recent Completions
-_(List recently completed tasks here)_
+_(Short bullets only)_
 
 ## Blockers
-_(List current blockers here)_
+_(Short bullets only)_
 
-## Notes
-_(Additional notes for today's session)_
+## Recent Completions
+_(Short bullets only)_
 """,
         "project_state.md": """# Project State & Active Context
 
 Stable facts and active threads for this project.
+
+Keep this file compact. Durable facts belong here; long narratives do not.
 
 ## STABLE FACTS
 project_name: ""
@@ -196,7 +219,7 @@ architecture: ""
 active_threads: {}
 
 ## NOTES
-_(Add project-specific notes here)_
+_(Only durable, project-wide notes. Put task detail in dated files.)_
 """,
         "folder_map.md": """# Directory: .codex_memories
 
@@ -204,9 +227,10 @@ _(Add project-specific notes here)_
 | --- | --- |
 | _agent_rules.md | Core memory engine |
 | system_prompt.md | Operating protocol |
-| daily_summary.md | Rolling state |
+| daily_summary.md | Rolling recent index |
 | project_state.md | Stable facts |
-| message_pairs.md | Conversation log |
+| YYYY-MM-DD/message_pairs.md | Daily conversation index |
+| YYYY-MM-DD/artifacts/ | Request-level detail |
 | folder_map.md | This file |
 | YYYY-MM-DD/ | Daily folders |
 """,
@@ -219,17 +243,26 @@ _(Add project-specific notes here)_
 
     today_folder = root / today
     ensure_dir(today_folder)
+    ensure_dir(today_folder / "artifacts")
 
     daily_files = {
         "task_log.md": f"""# Task Log: {today}
 
-| Timestamp | Status | Summary | Files Touched | Blockers |
-| --- | --- | --- | --- | --- |
+Timestamped high-signal task entries for this day.
+
+Keep rows concise. If a topic needs more detail, create an artifact file and reference it.
+
+| Timestamp | Status | Summary | Files Touched | Blockers | Artifact |
+| --- | --- | --- | --- | --- | --- |
 """,
         "message_pairs.md": f"""# Message Pairs: {today}
 
-| Timestamp | User Message | Assistant Summary |
-| --- | --- | --- |
+Compact daily index of user requests and assistant outcomes.
+
+If the exact prompt is long, store it in an artifact file and reference it here.
+
+| Timestamp | Request ID | User Intent | Assistant Summary | Artifact |
+| --- | --- | --- | --- | --- |
 """,
         "revival_summary.md": """# Revival Summary
 
@@ -257,6 +290,7 @@ _(List in-progress items)_
 ## Next Steps
 _(What tomorrow should pick up)_
 """,
+        "artifacts/.gitkeep": "",
     }
 
     for filename, content in daily_files.items():
@@ -299,6 +333,7 @@ def validate_memory(root: Path) -> bool:
             "message_pairs.md",
             "revival_summary.md",
             "end_of_day_summary.md",
+            "artifacts",
         ]
         for f in required_daily:
             if not (today_folder / f).exists():

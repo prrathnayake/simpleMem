@@ -14,6 +14,18 @@ Before doing substantive work, always read these in order:
 Write all reusable session memory only under `.codex_memories/`.
 Do not create or use any alternate memory root.
 
+## Small-File Protocol
+
+This repo is optimized for higher-accuracy memory retrieval with small files.
+
+- Keep root memory files short and index-like.
+- Prefer one concern per file.
+- Prefer one request artifact per request, investigation, or verification thread.
+- If a file starts becoming narrative, split it into smaller sibling files.
+- Use `.codex_memories/YYYY-MM-DD/artifacts/` for detail that does not belong in the daily index files.
+- Keep `message_pairs.md` concise. If the exact user request is long, store the full request in an artifact file and reference it from the daily message index.
+- Keep `daily_summary.md` as a rolling recent index, not a transcript.
+
 ## Project Identity
 
 _(Project name and description - fill in for your project)_
@@ -39,4 +51,3 @@ _(Commands to build, test, and run your project)_
 
 - Update local docs in `docs/` when architecture or workflow changes
 - Keep docs aligned with meaningful code changes
-
