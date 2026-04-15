@@ -23,6 +23,5 @@ htmlcov/
 Thumbs.db
 
 # Test / temp
-tests/
 tmp/
 temp/
