@@ -104,6 +104,89 @@ if (-not $protocolOk) {
     Write-BootstrapLog "Continuing anyway - bootstrap will fix most issues." -Level "INFO"
 }
 
+$agentsContent = @"
+# Repository Guidelines
+
+## Agent Memory Entrypoint
+
+Before doing substantive work, always read these in order:
+
+1. `.codex_memories/_agent_rules.md`
+2. `.codex_memories/project_state.md`
+3. `.codex_memories/system_prompt.md`
+4. `.codex_memories/daily_summary.md`
+5. `.codex_memories/YYYY-MM-DD/revival_summary.md`
+6. `.codex_memories/YYYY-MM-DD/task_log.md`
+
+Write all reusable session memory only under `.codex_memories/`.
+Do not create or use any alternate memory root.
+
+## Small-File Protocol
+
+This repo is optimized for higher-accuracy memory retrieval with small files.
+
+- Keep root memory files short and index-like.
+- Prefer one concern per file.
+- Prefer one request artifact per request, investigation, or verification thread.
+- If a file starts becoming narrative, split it into smaller sibling files.
+- Use `.codex_memories/YYYY-MM-DD/artifacts/` for detail that does not belong in the daily index files.
+- Keep `message_pairs.md` concise. If the exact user request is long, store the full request in an artifact file and reference it from the daily message index.
+- Keep `daily_summary.md` as a rolling recent index, not a transcript.
+
+## Project Identity
+
+_(Project name and description - fill in for your project)_
+
+## Project Structure & Important Directories
+
+_(List important directories for your project)_
+
+## Build, Setup, and Run Commands
+
+_(Commands to build, test, and run your project)_
+
+## Testing Commands & Conventions
+
+- Preferred test root: `tests/`
+
+## Comments & Docstrings
+
+- Preserve useful comments/docstrings where they help future readers
+- Do not add noisy comments for obvious code
+
+## Documentation Sync Expectations
+
+- Update local docs in `docs/` when architecture or workflow changes
+- Keep docs aligned with meaningful code changes
+"@
+
+$architectureContent = @"
+# Project Architecture
+
+_(This file is for the coding agent. It contains the architecture of the actual project being built.)_
+
+## Application Stack
+- Frontend: []
+- Backend: []
+- Database: []
+
+## Structural Logic
+_(Explain how the code modules interact for this specific end-product)_
+"@
+
+$designContent = @"
+# Application Design & UI
+
+_(This file is for the coding agent. It contains UI/UX design and aesthetics for the project being built.)_
+
+## Design System
+- Primary Colors: []
+- Typography: []
+
+## Layout Rules
+_(Describe the interactive mechanics and styling tokens for the target application)_
+"@
+
 Ensure-Directory $MemoryRoot
 
 $sysPromptContent = @"
@@ -184,7 +267,45 @@ $folderMapContent = @"
 | YYYY-MM-DD/ | Daily folders |
 "@
 
-Ensure-File -Path "$MemoryRoot/_agent_rules.md" -SkipIfExists
+$agentRulesContent = @"
+# Core Agent Memory Engine
+
+This system exists purely for **the coding agent** to persist its intelligence context securely across sessions without destroying its context window limits.
+
+You are treating this repository as a Graph Data-Structure.
+`AGENTS.md` -> `.codex_memories/_agent_rules.md` -> `.codex_memories/project_state.md` -> `.codex_memories/system_prompt.md` -> `.codex_memories/daily_summary.md` -> `.codex_memories/YYYY-MM-DD/revival_summary.md` -> `.codex_memories/YYYY-MM-DD/task_log.md`
+
+## Start of Task Checklist
+1. **Mandatory Load:** Trace from `AGENTS.md` and read `.codex_memories/_agent_rules.md` (this file).
+2. **State Load:** Read `.codex_memories/project_state.md` to see stable facts and active threads.
+3. **Protocol Load:** Read `.codex_memories/system_prompt.md` and `.codex_memories/daily_summary.md`.
+4. **Daily Hub Creation:** If a `.codex_memories/YYYY-MM-DD/` folder for today does not exist, create it.
+5. **Session Revival:** On the *first task of a new day*, read yesterday's folder. Write a `revival_summary.md` inside *today's* folder to bootstrap context.
+6. **Detail Budget:** Load artifact files only when the daily index files are not enough. Do not read entire history by default.
+
+## Navigation & Work Logic
+7. **Architectural Guardrails:** Target project architecture is in `/ARCHITECTURE.md` and UI design is in `/DESIGN.md`. Do NOT use these files for your AI engine memory. They are strictly for the application you are building.
+8. **Dynamic Discovery:** Whenever you enter a code directory, look for a `folder_map.md`. If missing, generate one so future agents can parse the directory structure without reading every dense codebase file.
+9. **Small-File Rule:** Root files stay compact. Prefer one concern per file and create small files under `.codex_memories/YYYY-MM-DD/artifacts/` for detailed debugging, verification, migrations, or long requests.
+
+## End of Task Checklist
+10. **Conversations:** Inside today's `YYYY-MM-DD/` folder, create or append to `message_pairs.md`. Keep it concise. If the exact user prompt is long, store it in an artifact file and reference it from `message_pairs.md`.
+11. **Task Log:** Inside today's `YYYY-MM-DD/` folder, create or append to `task_log.md`. Log only the high-signal summary of what was coded, debugged, and blocked during this run.
+12. **Daily Summary Update:** Update `.codex_memories/daily_summary.md` with active tasks, blockers, and recent completions. Keep it a rolling index; archive or remove stale items instead of letting it grow.
+13. **Final Summarization:** Maintain an `end_of_day_summary.md` in today's folder. Keep it short and action-oriented so tomorrow's agent can scan it quickly.
+14. **State Update:** Update your specific agent thread in `.codex_memories/project_state.md`.
+15. **Split Early:** If any memory file starts to sprawl, split it into a new artifact file instead of continuing to append.
+
+## Memory Root
+- Write all reusable session memory only under `.codex_memories/`.
+- Do not create or use any alternate memory root.
+"@
+
+Ensure-File -Path "$RepoRoot/AGENTS.md" -Content $agentsContent -SkipIfExists
+Ensure-File -Path "$RepoRoot/ARCHITECTURE.md" -Content $architectureContent -SkipIfExists
+Ensure-File -Path "$RepoRoot/DESIGN.md" -Content $designContent -SkipIfExists
+
+Ensure-File -Path "$MemoryRoot/_agent_rules.md" -Content $agentRulesContent -SkipIfExists
 Ensure-File -Path "$MemoryRoot/system_prompt.md" -Content $sysPromptContent -SkipIfExists
 Ensure-File -Path "$MemoryRoot/daily_summary.md" -Content $dailySummaryContent -SkipIfExists
 Ensure-File -Path "$MemoryRoot/project_state.md" -Content $projectStateContent -SkipIfExists

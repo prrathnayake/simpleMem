@@ -9,6 +9,8 @@
     - bootstrap scripts use .codex_memories/
     - required daily files exist
     - .agent_memories/ does not exist
+    - ARCHITECTURE.md and DESIGN.md exist
+    - Core files are not empty
 #>
 
 param(
@@ -79,6 +81,12 @@ Test-Protocol "init-agent-memory.ps1 uses .codex_memories/" {
     (Get-Content $path -Raw) -match '\.codex_memories'
 }
 
+Test-Protocol "init-agent-memory.sh uses .codex_memories/" {
+    $path = Join-Path $RepoRoot "scripts/init-agent-memory.sh"
+    if (-not (Test-Path $path)) { return $false }
+    (Get-Content $path -Raw) -match '\.codex_memories'
+}
+
 Test-Protocol ".agent_memories/ does not exist" {
     -not (Test-Path (Join-Path $RepoRoot ".agent_memories"))
 }
@@ -87,18 +95,46 @@ Test-Protocol "Memory root exists" {
     Test-Path $MemoryRoot
 }
 
+Test-Protocol "ARCHITECTURE.md exists" {
+    Test-Path (Join-Path $RepoRoot "ARCHITECTURE.md")
+}
+
+Test-Protocol "DESIGN.md exists" {
+    Test-Path (Join-Path $RepoRoot "DESIGN.md")
+}
+
 Test-Protocol "Core files exist" {
     $coreFiles = @(
         "$MemoryRoot/_agent_rules.md",
         "$MemoryRoot/project_state.md",
         "$MemoryRoot/system_prompt.md",
-        "$MemoryRoot/daily_summary.md"
+        "$MemoryRoot/daily_summary.md",
+        "$MemoryRoot/folder_map.md"
     )
     $allExist = $true
     foreach ($file in $coreFiles) {
         if (-not (Test-Path $file)) { $allExist = $false }
     }
     return $allExist
+}
+
+Test-Protocol "Core files are not empty" {
+    $coreFiles = @(
+        "$MemoryRoot/_agent_rules.md",
+        "$MemoryRoot/project_state.md",
+        "$MemoryRoot/system_prompt.md",
+        "$MemoryRoot/daily_summary.md",
+        "$MemoryRoot/folder_map.md"
+    )
+    $allNonEmpty = $true
+    foreach ($file in $coreFiles) {
+        if (Test-Path $file) {
+            if ((Get-Item $file).Length -eq 0) { $allNonEmpty = $false }
+        } else {
+            $allNonEmpty = $false
+        }
+    }
+    return $allNonEmpty
 }
 
 Test-Protocol "Today's folder exists" {
@@ -125,7 +161,7 @@ Test-Protocol "Daily files exist" {
 
 Write-Host ""
 Write-Host "=== Summary ===" -ForegroundColor Cyan
-$total = 12
+$total = 16
 if ($Passed -eq $total) {
     Write-Host "All protocol checks passed!" -ForegroundColor Green
     exit 0

@@ -21,9 +21,10 @@ You are treating this repository as a Graph Data-Structure.
 ## End of Task Checklist
 10. **Conversations:** Inside today's `YYYY-MM-DD/` folder, create or append to `message_pairs.md`. Keep it concise. If the exact user prompt is long, store it in an artifact file and reference it from `message_pairs.md`.
 11. **Task Log:** Inside today's `YYYY-MM-DD/` folder, create or append to `task_log.md`. Log only the high-signal summary of what was coded, debugged, and blocked during this run.
-12. **Final Summarization:** Maintain an `end_of_day_summary.md` in today's folder. Keep it short and action-oriented so tomorrow's agent can scan it quickly.
-13. **State Update:** Update your specific agent thread in `.codex_memories/project_state.md`.
-14. **Split Early:** If any memory file starts to sprawl, split it into a new artifact file instead of continuing to append.
+12. **Daily Summary Update:** Update `.codex_memories/daily_summary.md` with active tasks, blockers, and recent completions. Keep it a rolling index; archive or remove stale items instead of letting it grow.
+13. **Final Summarization:** Maintain an `end_of_day_summary.md` in today's folder. Keep it short and action-oriented so tomorrow's agent can scan it quickly.
+14. **State Update:** Update your specific agent thread in `.codex_memories/project_state.md`.
+15. **Split Early:** If any memory file starts to sprawl, split it into a new artifact file instead of continuing to append.
 
 ## Memory Root
 - Write all reusable session memory only under `.codex_memories/`.

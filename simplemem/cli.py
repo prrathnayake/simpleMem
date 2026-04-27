@@ -138,7 +138,7 @@ _(Describe the interactive mechanics and styling tokens for the target applicati
 This system exists purely for **the coding agent** to persist its intelligence context securely across sessions without destroying its context window limits.
 
 You are treating this repository as a Graph Data-Structure.
-AGENTS.md -> .codex_memories/_agent_rules.md -> .codex_memories/project_state.md -> .codex_memories/system_prompt.md -> .codex_memories/daily_summary.md -> .codex_memories/YYYY-MM-DD/revival_summary.md -> .codex_memories/YYYY-MM-DD/task_log.md
+`AGENTS.md` -> `.codex_memories/_agent_rules.md` -> `.codex_memories/project_state.md` -> `.codex_memories/system_prompt.md` -> `.codex_memories/daily_summary.md` -> `.codex_memories/YYYY-MM-DD/revival_summary.md` -> `.codex_memories/YYYY-MM-DD/task_log.md`
 
 ## Start of Task Checklist
 1. **Mandatory Load:** Trace from `AGENTS.md` and read `.codex_memories/_agent_rules.md` (this file).
@@ -156,9 +156,10 @@ AGENTS.md -> .codex_memories/_agent_rules.md -> .codex_memories/project_state.md
 ## End of Task Checklist
 10. **Conversations:** Inside today's `YYYY-MM-DD/` folder, create or append to `message_pairs.md`. Keep it concise. If the exact user prompt is long, store it in an artifact file and reference it from `message_pairs.md`.
 11. **Task Log:** Inside today's `YYYY-MM-DD/` folder, create or append to `task_log.md`. Log only the high-signal summary of what was coded, debugged, and blocked during this run.
-12. **Final Summarization:** Maintain an `end_of_day_summary.md` in today's folder. Keep it short and action-oriented so tomorrow's agent can scan it quickly.
-13. **State Update:** Update your specific agent thread in `.codex_memories/project_state.md`.
-14. **Split Early:** If any memory file starts to sprawl, split it into a new artifact file instead of continuing to append.
+12. **Daily Summary Update:** Update `.codex_memories/daily_summary.md` with active tasks, blockers, and recent completions. Keep it a rolling index; archive or remove stale items instead of letting it grow.
+13. **Final Summarization:** Maintain an `end_of_day_summary.md` in today's folder. Keep it short and action-oriented so tomorrow's agent can scan it quickly.
+14. **State Update:** Update your specific agent thread in `.codex_memories/project_state.md`.
+15. **Split Early:** If any memory file starts to sprawl, split it into a new artifact file instead of continuing to append.
 
 ## Memory Root
 - Write all reusable session memory only under `.codex_memories/`.
@@ -314,14 +315,24 @@ def validate_memory(root: Path) -> bool:
         issues.append(f"Memory root not found: {root}")
         return False
 
-    if not (root / "_agent_rules.md").exists():
-        issues.append("Core file missing: _agent_rules.md")
-    if not (root / "project_state.md").exists():
-        issues.append("Core file missing: project_state.md")
-    if not (root / "system_prompt.md").exists():
-        issues.append("Core file missing: system_prompt.md")
-    if not (root / "daily_summary.md").exists():
-        issues.append("Core file missing: daily_summary.md")
+    core_files = [
+        "_agent_rules.md",
+        "project_state.md",
+        "system_prompt.md",
+        "daily_summary.md",
+        "folder_map.md",
+    ]
+    for f in core_files:
+        path = root / f
+        if not path.exists():
+            issues.append(f"Core file missing: {f}")
+        elif path.stat().st_size == 0:
+            issues.append(f"Core file is empty: {f}")
+
+    repo_root = root.parent
+    for f in ["ARCHITECTURE.md", "DESIGN.md"]:
+        if not (repo_root / f).exists():
+            issues.append(f"Project file missing: {f}")
 
     today = get_today()
     today_folder = root / today

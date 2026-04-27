@@ -71,7 +71,13 @@ $coreFiles = @(
 )
 
 foreach ($file in $coreFiles) {
-    $null = Test-PathAndWarn -Path $file -RequiredMessage "Core file"
+    $exists = Test-PathAndWarn -Path $file -RequiredMessage "Core file"
+    if ($exists) {
+        $size = (Get-Item $file).Length
+        if ($size -eq 0) {
+            Write-Validation "Core file is empty: $file" "ERROR"
+        }
+    }
 }
 
 Write-Validation "=== Checking Today's Folder ===" "INFO"
@@ -95,6 +101,15 @@ if (Test-Path $todayFolder) {
     if ($Fix) {
         Write-Validation "Run init script to create today's folder" "INFO"
     }
+}
+
+Write-Validation "=== Checking Project Files ===" "INFO"
+$projectFiles = @(
+    (Join-Path $RepoRoot "ARCHITECTURE.md"),
+    (Join-Path $RepoRoot "DESIGN.md")
+)
+foreach ($file in $projectFiles) {
+    $null = Test-PathAndWarn -Path $file -RequiredMessage "Project file"
 }
 
 Write-Validation "=== Checking Placeholders ===" "INFO"

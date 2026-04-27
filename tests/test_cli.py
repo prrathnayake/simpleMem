@@ -77,3 +77,46 @@ def test_validate_fails_when_missing_files(temp_dir):
 
     memory_root.mkdir()
     assert not validate_memory(memory_root)
+
+def test_init_creates_project_files(temp_dir):
+    """Test that init creates AGENTS.md, ARCHITECTURE.md, and DESIGN.md."""
+    from simplemem.cli import init_memory, MEMORY_ROOT
+    init_memory(temp_dir / MEMORY_ROOT)
+
+    assert (temp_dir / "AGENTS.md").exists()
+    assert (temp_dir / "ARCHITECTURE.md").exists()
+    assert (temp_dir / "DESIGN.md").exists()
+
+
+def test_init_core_files_have_content(temp_dir):
+    """Test that core memory files are not empty."""
+    from simplemem.cli import init_memory, MEMORY_ROOT
+    init_memory(temp_dir / MEMORY_ROOT)
+
+    memory_root = temp_dir / MEMORY_ROOT
+    for fname in ["_agent_rules.md", "system_prompt.md", "daily_summary.md", "project_state.md", "folder_map.md"]:
+        path = memory_root / fname
+        assert path.stat().st_size > 0, f"{fname} should not be empty"
+
+
+def test_validate_fails_when_empty_core_file(temp_dir):
+    """Test that validate fails when a core file is empty."""
+    from simplemem.cli import init_memory, validate_memory, MEMORY_ROOT
+    memory_root = temp_dir / MEMORY_ROOT
+    init_memory(memory_root)
+
+    # Empty out a core file
+    (memory_root / "_agent_rules.md").write_text("")
+    assert not validate_memory(memory_root)
+
+
+def test_validate_fails_when_missing_project_files(temp_dir):
+    """Test that validate fails when ARCHITECTURE.md or DESIGN.md is missing."""
+    from simplemem.cli import init_memory, validate_memory, MEMORY_ROOT
+    memory_root = temp_dir / MEMORY_ROOT
+    init_memory(memory_root)
+
+    # Remove ARCHITECTURE.md
+    (temp_dir / "ARCHITECTURE.md").unlink()
+    assert not validate_memory(memory_root)
+
