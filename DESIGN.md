@@ -1,10 +1,12 @@
 # Application Design & UI
 
-*(This file is for the coding agent. It contains UI/UX design information and aesthetics for the project being built.)*
+As the coding agent, document the UI/UX design and aesthetics of the project here.
 
 ## Design System
-- Primary Colors: []
-- Typography: []
+
+- Primary Colors: []  # Fill in color palette
+- Typography: []  # Fill in font families and scale
 
 ## Layout Rules
-- [Describe the interactive mechanics and styling tokens for the target application]
+
+_(Describe interactive mechanics, styling tokens, and responsive behavior.)_

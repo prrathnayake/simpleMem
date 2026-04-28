@@ -38,9 +38,11 @@ Agent startup order:
 2. `.codex_memories/_agent_rules.md`
 3. `.codex_memories/project_state.md`
 4. `.codex_memories/system_prompt.md`
-5. `.codex_memories/daily_summary.md`
-6. `.codex_memories/YYYY-MM-DD/revival_summary.md`
-7. `.codex_memories/YYYY-MM-DD/task_log.md`
+5. `.codex_memories/code_logics.md`
+6. `.codex_memories/system_logics.md`
+7. `.codex_memories/daily_summary.md`
+8. `.codex_memories/YYYY-MM-DD/revival_summary.md`
+9. `.codex_memories/YYYY-MM-DD/task_log.md`
 
 **If any other file disagrees with this section, this section wins.**
 

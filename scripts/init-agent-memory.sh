@@ -52,9 +52,8 @@ ensure_dir() {
     if [[ ! -d "$1" ]]; then
         mkdir -p "$1"
         log "INFO" "Created directory: $1"
-        return 0
     fi
-    return 1
+    return 0
 }
 
 ensure_file() {
@@ -246,7 +245,7 @@ You are treating this repository as a Graph Data-Structure.
 2. **State Load:** Read `.codex_memories/project_state.md` to see stable facts and active threads.
 3. **Protocol Load:** Read `.codex_memories/system_prompt.md` and `.codex_memories/daily_summary.md`.
 4. **Daily Hub Creation:** If a `.codex_memories/YYYY-MM-DD/` folder for today does not exist, create it.
-5. **Session Revival:** On the *first task of a new day*, read yesterday's folder. Write a `revival_summary.md` inside *today's* folder to bootstrap context.
+5. **Session Revival:** On the *first task of a new day*, read yesterday'\''s folder. Write a `revival_summary.md` inside *today'\''s* folder to bootstrap context.
 6. **Detail Budget:** Load artifact files only when the daily index files are not enough. Do not read entire history by default.
 
 ## Navigation & Work Logic
@@ -255,10 +254,10 @@ You are treating this repository as a Graph Data-Structure.
 9. **Small-File Rule:** Root files stay compact. Prefer one concern per file and create small files under `.codex_memories/YYYY-MM-DD/artifacts/` for detailed debugging, verification, migrations, or long requests.
 
 ## End of Task Checklist
-10. **Conversations:** Inside today's `YYYY-MM-DD/` folder, create or append to `message_pairs.md`. Keep it concise. If the exact user prompt is long, store it in an artifact file and reference it from `message_pairs.md`.
-11. **Task Log:** Inside today's `YYYY-MM-DD/` folder, create or append to `task_log.md`. Log only the high-signal summary of what was coded, debugged, and blocked during this run.
+10. **Conversations:** Inside today'\''s `YYYY-MM-DD/` folder, create or append to `message_pairs.md`. Keep it concise. If the exact user prompt is long, store it in an artifact file and reference it from `message_pairs.md`.
+11. **Task Log:** Inside today'\''s `YYYY-MM-DD/` folder, create or append to `task_log.md`. Log only the high-signal summary of what was coded, debugged, and blocked during this run.
 12. **Daily Summary Update:** Update `.codex_memories/daily_summary.md` with active tasks, blockers, and recent completions. Keep it a rolling index; archive or remove stale items instead of letting it grow.
-13. **Final Summarization:** Maintain an `end_of_day_summary.md` in today's folder. Keep it short and action-oriented so tomorrow's agent can scan it quickly.
+13. **Final Summarization:** Maintain an `end_of_day_summary.md` in today'\''s folder. Keep it short and action-oriented so tomorrow'\''s agent can scan it quickly.
 14. **State Update:** Update your specific agent thread in `.codex_memories/project_state.md`.
 15. **Split Early:** If any memory file starts to sprawl, split it into a new artifact file instead of continuing to append.
 
@@ -281,7 +280,7 @@ TODAY_DIR="$MEMORY_ROOT/$TODAY"
 ensure_dir "$TODAY_DIR"
 ensure_dir "$TODAY_DIR/artifacts"
 
-TASK_LOG_CONTENT="# Task Log: $TODAY
+TASK_LOG_CONTENT="# Task Log: \$TODAY
 
 Timestamped high-signal task entries for this day.
 
@@ -291,7 +290,7 @@ Keep rows concise. If a topic needs more detail, create an artifact file and ref
 | --- | --- | --- | --- | --- | --- |
 "
 
-MESSAGE_PAIRS_CONTENT="# Message Pairs: $TODAY
+MESSAGE_PAIRS_CONTENT="# Message Pairs: \$TODAY
 
 Compact daily index of user requests and assistant outcomes.
 
@@ -303,12 +302,12 @@ If the exact prompt is long, store it in an artifact file and reference it here.
 
 REVIVAL_CONTENT="# Revival Summary
 
-Context for today'"'"'s session, bootstrapped from yesterday (if exists).
+Context for today's session, bootstrapped from yesterday (if exists).
 
-## Yesterday'"'"'s Highlights
-_(Fill in from previous day'"'"'s end_of_day_summary.md)_
+## Yesterday's Highlights
+_(Fill in from previous day's end_of_day_summary.md)_
 
-## Today'"'"'s Plan
+## Today's Plan
 _(What needs to be done today)_
 
 ## Open Threads
@@ -317,7 +316,7 @@ _(Carried forward from previous sessions)_
 
 END_OF_DAY_CONTENT="# End of Day Summary
 
-Aggregate of today'"'"'s tasks for tomorrow'"'"'s revival.
+Aggregate of today's tasks for tomorrow's revival.
 
 ## Completed Tasks
 _(List completed tasks)_

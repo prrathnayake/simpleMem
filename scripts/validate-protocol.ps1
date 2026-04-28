@@ -108,6 +108,8 @@ Test-Protocol "Core files exist" {
         "$MemoryRoot/_agent_rules.md",
         "$MemoryRoot/project_state.md",
         "$MemoryRoot/system_prompt.md",
+        "$MemoryRoot/code_logics.md",
+        "$MemoryRoot/system_logics.md",
         "$MemoryRoot/daily_summary.md",
         "$MemoryRoot/folder_map.md"
     )
@@ -123,6 +125,8 @@ Test-Protocol "Core files are not empty" {
         "$MemoryRoot/_agent_rules.md",
         "$MemoryRoot/project_state.md",
         "$MemoryRoot/system_prompt.md",
+        "$MemoryRoot/code_logics.md",
+        "$MemoryRoot/system_logics.md",
         "$MemoryRoot/daily_summary.md",
         "$MemoryRoot/folder_map.md"
     )
@@ -161,7 +165,7 @@ Test-Protocol "Daily files exist" {
 
 Write-Host ""
 Write-Host "=== Summary ===" -ForegroundColor Cyan
-$total = 16
+$total = 18
 if ($Passed -eq $total) {
     Write-Host "All protocol checks passed!" -ForegroundColor Green
     exit 0

@@ -1,11 +1,13 @@
 # Project Architecture
 
-*(This file is for the coding agent. It contains the architecture of the actual working project being built.)*
+As the coding agent, document the architecture of the actual project here. Update this file as the architecture evolves.
 
 ## Application Stack
-- Frontend: []
-- Backend: []
-- Database: []
+
+- Frontend: []  # Fill in frameworks and libraries
+- Backend: []  # Fill in runtime, frameworks, and libraries
+- Database: []  # Fill in database technology
 
 ## Structural Logic
-- [Explain how the code modules interact for this specific end-product]
+
+_(Document how code modules interact for this specific project.)_

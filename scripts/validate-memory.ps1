@@ -65,6 +65,8 @@ Write-Validation "=== Checking Core Files ===" "INFO"
 $coreFiles = @(
     "$MemoryRoot/_agent_rules.md",
     "$MemoryRoot/system_prompt.md",
+    "$MemoryRoot/code_logics.md",
+    "$MemoryRoot/system_logics.md",
     "$MemoryRoot/daily_summary.md",
     "$MemoryRoot/project_state.md",
     "$MemoryRoot/folder_map.md"

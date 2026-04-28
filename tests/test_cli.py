@@ -34,6 +34,8 @@ def test_init_creates_core_files(temp_dir):
     memory_root = temp_dir / MEMORY_ROOT
     assert (memory_root / "_agent_rules.md").exists()
     assert (memory_root / "system_prompt.md").exists()
+    assert (memory_root / "code_logics.md").exists()
+    assert (memory_root / "system_logics.md").exists()
     assert (memory_root / "daily_summary.md").exists()
     assert (memory_root / "project_state.md").exists()
     assert (memory_root / "folder_map.md").exists()
@@ -94,7 +96,15 @@ def test_init_core_files_have_content(temp_dir):
     init_memory(temp_dir / MEMORY_ROOT)
 
     memory_root = temp_dir / MEMORY_ROOT
-    for fname in ["_agent_rules.md", "system_prompt.md", "daily_summary.md", "project_state.md", "folder_map.md"]:
+    for fname in [
+        "_agent_rules.md",
+        "system_prompt.md",
+        "code_logics.md",
+        "system_logics.md",
+        "daily_summary.md",
+        "project_state.md",
+        "folder_map.md",
+    ]:
         path = memory_root / fname
         assert path.stat().st_size > 0, f"{fname} should not be empty"
 
@@ -119,4 +129,3 @@ def test_validate_fails_when_missing_project_files(temp_dir):
     # Remove ARCHITECTURE.md
     (temp_dir / "ARCHITECTURE.md").unlink()
     assert not validate_memory(memory_root)
-

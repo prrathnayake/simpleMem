@@ -1,22 +1,28 @@
 # Repository Guidelines
 
+You are a coding agent assigned to this project. This file is your absolute entrypoint. Read it fully, then follow the reading chain below before doing any substantive work.
+
 ## Agent Memory Entrypoint
 
-Before doing substantive work, always read these in order:
+Before writing, editing, or running any code, you MUST read these files in this exact order:
 
-1. `.codex_memories/_agent_rules.md`
-2. `.codex_memories/project_state.md`
-3. `.codex_memories/system_prompt.md`
-4. `.codex_memories/daily_summary.md`
-5. `.codex_memories/YYYY-MM-DD/revival_summary.md`
-6. `.codex_memories/YYYY-MM-DD/task_log.md`
+1. `.codex_memories/_agent_rules.md` — Core memory engine and mandatory checklists
+2. `.codex_memories/project_state.md` — Stable facts and active threads
+3. `.codex_memories/system_prompt.md` — Your operating protocol
+4. `.codex_memories/code_logics.md` — How this codebase works
+5. `.codex_memories/system_logics.md` — Work scenario guidance
+6. `.codex_memories/daily_summary.md` — Rolling recent index
+7. `.codex_memories/YYYY-MM-DD/revival_summary.md` — Today's session bootstrap
+8. `.codex_memories/YYYY-MM-DD/task_log.md` — Today's task journal
 
-Write all reusable session memory only under `.codex_memories/`.
-Do not create or use any alternate memory root.
+## Memory Root Rule
+
+Write all reusable session memory ONLY under `.codex_memories/`.
+Do NOT create or use any alternate memory root.
 
 ## Small-File Protocol
 
-This repo is optimized for higher-accuracy memory retrieval with small files.
+This project uses a small-file memory system for higher-accuracy retrieval.
 
 - Keep root memory files short and index-like.
 - Prefer one concern per file.
@@ -28,26 +34,27 @@ This repo is optimized for higher-accuracy memory retrieval with small files.
 
 ## Project Identity
 
-_(Project name and description - fill in for your project)_
+_(As the coding agent, fill this in once you understand the project.)_
 
 ## Project Structure & Important Directories
 
-_(List important directories for your project)_
+_(As the coding agent, list important directories for this project once you discover them.)_
 
 ## Build, Setup, and Run Commands
 
-_(Commands to build, test, and run your project)_
+_(As the coding agent, document commands to build, test, and run this project.)_
 
 ## Testing Commands & Conventions
 
 - Preferred test root: `tests/`
+- Document the actual test runner and conventions once discovered.
 
 ## Comments & Docstrings
 
-- Preserve useful comments/docstrings where they help future readers
-- Do not add noisy comments for obvious code
+- Preserve useful comments/docstrings where they help future readers.
+- Do not add noisy comments for obvious code.
 
 ## Documentation Sync Expectations
 
-- Update local docs in `docs/` when architecture or workflow changes
-- Keep docs aligned with meaningful code changes
+- Update local docs in `docs/` when architecture or workflow changes.
+- Keep docs aligned with meaningful code changes.
