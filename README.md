@@ -27,7 +27,7 @@ That bootstraps a small-file memory system in `.codex_memories/`.
 
 When an agent connects to the project, it executes the following path:
 
-`AGENTS.md` ➡️ `.codex_memories/_agent_rules.md` ➡️ `.codex_memories/project_state.md` ➡️ `.codex_memories/YYYY-MM-DD/`
+`AGENTS.md` ➡️ `.codex_memories/_agent_rules.md` ➡️ `.codex_memories/project_state.md` ➡️ `.codex_memories/system_prompt.md` ➡️ `.codex_memories/code_logics.md` ➡️ `.codex_memories/system_logics.md` ➡️ `.codex_memories/daily_summary.md` ➡️ `.codex_memories/YYYY-MM-DD/`
 
 ## Canonical Protocol
 
@@ -48,7 +48,7 @@ Agent startup order:
 
 ## Small-File Rules
 
-- Keep `project_state.md`, `system_prompt.md`, and `daily_summary.md` brief enough to reread quickly.
+- Keep root memory files (`_agent_rules.md`, `system_prompt.md`, `code_logics.md`, `system_logics.md`, `daily_summary.md`, `project_state.md`, `folder_map.md`) brief enough to reread quickly.
 - Put detailed research, debugging, and verification into `.codex_memories/YYYY-MM-DD/artifacts/`.
 - Keep `message_pairs.md` as a compact index. If a prompt is long, store the full request in an artifact and reference it.
 - Split by concern before a file becomes a general-purpose dump.
