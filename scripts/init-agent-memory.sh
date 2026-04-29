@@ -266,7 +266,17 @@ You are treating this repository as a Graph Data-Structure.
 - Do not create or use any alternate memory root.
 '
 
-ensure_file "$REPO_ROOT/AGENTS.md" "$AGENTS_CONTENT"
+if [[ -f "$REPO_ROOT/AGENTS.md" && "$FORCE" != "true" ]]; then
+    if ! grep -q "Agent Memory Entrypoint" "$REPO_ROOT/AGENTS.md"; then
+        echo "" >> "$REPO_ROOT/AGENTS.md"
+        echo "$AGENTS_CONTENT" >> "$REPO_ROOT/AGENTS.md"
+        log "INFO" "Appended memory instructions to: $REPO_ROOT/AGENTS.md"
+    else
+        log "INFO" "Skipping existing (already has memory instructions): $REPO_ROOT/AGENTS.md"
+    fi
+else
+    ensure_file "$REPO_ROOT/AGENTS.md" "$AGENTS_CONTENT"
+fi
 ensure_file "$REPO_ROOT/ARCHITECTURE.md" "$ARCHITECTURE_CONTENT"
 ensure_file "$REPO_ROOT/DESIGN.md" "$DESIGN_CONTENT"
 

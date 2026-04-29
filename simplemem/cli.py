@@ -140,8 +140,56 @@ _(Describe interactive mechanics, styling tokens, and responsive behavior.)_
 
     for filename, content in root_files.items():
         path = Path(filename)
-        if ensure_file(path, content):
-            files_created.append(filename)
+        if filename == "AGENTS.md":
+            if path.exists():
+                # Append memory instructions to existing AGENTS.md
+                append_content = """
+
+## Agent Memory Entrypoint
+
+Before writing, editing, or running any code, you MUST read these files in this exact order:
+
+1. `.codex_memories/_agent_rules.md` — Core memory engine and mandatory checklists
+2. `.codex_memories/project_state.md` — Stable facts and active threads
+3. `.codex_memories/system_prompt.md` — Your operating protocol
+4. `.codex_memories/code_logics.md` — How this codebase works
+5. `.codex_memories/system_logics.md` — Work scenario guidance
+6. `.codex_memories/daily_summary.md` — Rolling recent index
+7. `.codex_memories/YYYY-MM-DD/revival_summary.md` — Today's session bootstrap
+8. `.codex_memories/YYYY-MM-DD/task_log.md` — Today's task journal
+
+## Memory Root Rule
+
+Write all reusable session memory ONLY under `.codex_memories/`.
+Do NOT create or use any alternate memory root.
+
+## Small-File Protocol
+
+This project uses a small-file memory system for higher-accuracy retrieval.
+
+- Keep root memory files short and index-like.
+- Prefer one concern per file.
+- Prefer one request artifact per request, investigation, or verification thread.
+- If a file starts becoming narrative, split it into smaller sibling files.
+- Use `.codex_memories/YYYY-MM-DD/artifacts/` for detail that does not belong in the daily index files.
+- Keep `message_pairs.md` concise. If the exact user request is long, store the full request in an artifact file and reference it from the daily message index.
+- Keep `daily_summary.md` as a rolling recent index, not a transcript.
+"""
+                # Check if memory instructions already exist
+                existing = path.read_text()
+                if "Agent Memory Entrypoint" not in existing:
+                    path.write_text(existing + append_content)
+                    log(f"Appended memory instructions to: {path}")
+                    files_created.append(filename + " (appended)")
+                else:
+                    log(f"Skipping existing file (already has memory instructions): {path}")
+            else:
+                path.write_text(content)
+                log(f"Created file: {path}")
+                files_created.append(filename)
+        else:
+            if ensure_file(path, content):
+                files_created.append(filename)
 
     core_files = {
         "_agent_rules.md": """# Core Agent Memory Engine
