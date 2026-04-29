@@ -458,7 +458,19 @@ You MUST complete these steps before ending any session:
 - Do not create or use any alternate memory root.
 "@
 
-Ensure-File -Path "$RepoRoot/AGENTS.md" -Content $agentsContent -SkipIfExists
+$agentsPath = Join-Path $RepoRoot "AGENTS.md"
+if ((Test-Path $agentsPath) -and -not $Force) {
+    $existingContent = Get-Content $agentsPath -Raw
+    if ($existingContent -notmatch 'Agent Memory Entrypoint') {
+        Add-Content -Path $agentsPath -Value "`n`n$agentsContent" -NoNewline
+        Write-BootstrapLog "Appended memory instructions to: $agentsPath" -Level "INFO"
+    } else {
+        Write-BootstrapLog "Skipping existing (already has memory instructions): $agentsPath" -Level "INFO"
+    }
+} else {
+    Ensure-File -Path $agentsPath -Content $agentsContent
+}
+
 Ensure-File -Path "$RepoRoot/ARCHITECTURE.md" -Content $architectureContent -SkipIfExists
 Ensure-File -Path "$RepoRoot/DESIGN.md" -Content $designContent -SkipIfExists
 
