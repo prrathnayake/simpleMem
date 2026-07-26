@@ -1,0 +1,4 @@
+interface:
+  display_name: "Use SimpleMem"
+  short_description: "Maintain durable repository agent memory"
+  default_prompt: "Use $use-simplemem to start, recall, and finish repository work with bounded durable context."

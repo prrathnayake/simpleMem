@@ -1,3 +1,3 @@
-"""SimpleMem - File-system agent memory system for coding agents."""
+"""SimpleMem - vendor-neutral filesystem memory for project agents."""
 
-__version__ = "0.1.0"
+__version__ = "0.3.0"

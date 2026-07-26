@@ -1,0 +1,23 @@
+{
+  "name": "simplemem",
+  "version": "0.3.0",
+  "description": "Universal filesystem memory protocol for project agents",
+  "author": "Prasanna Rathnayake",
+  "license": "MIT",
+  "main": "simplemem.cli:main",
+  "type": "python",
+  "commands": {
+    "simplemem": {
+      "type": "python",
+      "entry": "simplemem.cli:main"
+    }
+  },
+  "skills": [
+    {
+      "name": "use-simplemem",
+      "path": "skills/use-simplemem",
+      "manifest": "skill.json"
+    }
+  ],
+  "dependencies": {}
+}

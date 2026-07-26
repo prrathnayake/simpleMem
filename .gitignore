@@ -25,3 +25,7 @@ Thumbs.db
 # Test / temp
 tmp/
 temp/
+
+# SimpleMem transient state
+.agent_memory/.runtime/
+.agent_memory/**/*.tmp

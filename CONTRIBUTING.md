@@ -1,54 +1,31 @@
 # Contributing to SimpleMem
 
-## Development Setup
+## Development setup
 
 ```bash
-git clone https://github.com/prrathnayake/simpleMem.git
-cd simpleMem
-pip install -e ".[dev]"
+python3 -m pip install -e '.[dev]'
+python3 -m pytest
+ruff check simplemem tests
 ```
 
-## Running Tests
+## FPM package verification
 
-```bash
-python -m pytest tests/
-```
+SimpleMem is distributed through Friday Package Manager. Before release:
 
-## Running Linting
+1. Keep the version aligned in `fpm.json`, `pyproject.toml`,
+   `simplemem/__init__.py`, and `skills/use-simplemem/skill.json`.
+2. Pack and install it into a temporary FPM project.
+3. Verify `fpm run simplemem -- validate --strict --json` and
+   `fpm skills --json`.
+4. Run the cross-repository integration test when Friday Package Manager is
+   available beside this repository.
 
-```bash
-ruff check simplemem/
-```
+## Protocol changes
 
-## Building Package
+`simplemem/templates/` is the only source for generated Markdown. Keep the CLI,
+README, portable skill, tests, and migration behavior aligned with those
+templates. Do not add alternate Bash or PowerShell template implementations.
 
-```bash
-pip install build
-python -m build
-```
-
-## Publishing
-
-1. Update version in `pyproject.toml`
-2. Create GitHub release
-3. CI will publish to PyPI automatically
-
-## Code Style
-
-- Follow PEP 8
-- Use `ruff check simplemem/` before committing
-- Add tests for new features
-
-## Documentation
-
-When you change the memory protocol, file list, or reading chain, update these files in the same PR:
-
-1. `README.md` — Human-facing overview and canonical protocol
-2. `AGENTS.md` — Agent entrypoint (must stay in sync with README)
-3. `simplemem/cli.py` — Python bootstrap templates
-4. `scripts/init-agent-memory.sh` — Bash bootstrap templates
-5. `scripts/init-agent-memory.ps1` — PowerShell bootstrap templates
-6. `scripts/validate-memory.ps1` — Validation script
-7. `scripts/validate-protocol.ps1` — Protocol consistency checker
-
-**Rule:** If any two of these files disagree, `README.md` wins.
+Use small, focused changes and add regression tests for every lifecycle,
+migration, retention, or adapter change. Never place secrets or real user
+conversations in fixtures.

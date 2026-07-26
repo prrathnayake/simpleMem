@@ -1,0 +1,132 @@
+{
+  "entries": 97,
+  "index_version": 1,
+  "schema_version": 2,
+  "sources": [
+    {
+      "path": "2026-07-19/end_of_day_summary.md",
+      "sha256": "d9b92864e408f4b51f67ef64edf390cf1410044117df5bc2471ea9ad2279317e",
+      "size": 275
+    },
+    {
+      "path": "2026-07-19/revival_summary.md",
+      "sha256": "279fc3c3d9fc89d000cad7c275d6945559dbf006c4060352812e464bdd311b89",
+      "size": 187
+    },
+    {
+      "path": "2026-07-19/tasks/simplemem-0.3.md",
+      "sha256": "2f5cd68fd4f16ca19fac0c9886b5d09ac9f4f21adb508f9264deb1b3cf7ffde2",
+      "size": 1392
+    },
+    {
+      "path": "2026-07-26/end_of_day_summary.md",
+      "sha256": "51b8bab4f63840b4ac52bbc4e26b803642f9861d9174035c124ff4f98d63ab81",
+      "size": 353
+    },
+    {
+      "path": "2026-07-26/revival_summary.md",
+      "sha256": "e9851a99c1e63ba3c4a8cd1791ea691620467b869e107d69b18ab7f6d612f78e",
+      "size": 425
+    },
+    {
+      "path": "2026-07-26/tasks/simplemem-hardening--20260726T153053819116-6ce1324d.md",
+      "sha256": "e48df291e941ebff358b3d8be1585dba8562ebebc7776ad90f219c5b76bc937a",
+      "size": 1175
+    },
+    {
+      "path": "codebase.md",
+      "sha256": "ab9088a53220b31769595e7ae37bb8438261237884719373745709857dcb1de0",
+      "size": 1487
+    },
+    {
+      "path": "current.md",
+      "sha256": "b46a4b50db555714d54ec2de20d7741b1c18806d12eb04930fe8c65189a3ceb4",
+      "size": 1557
+    },
+    {
+      "path": "project_state.md",
+      "sha256": "38af221f90fe9bd629186a76d66337e4a0f6819f14611230b5582b688993e568",
+      "size": 1015
+    },
+    {
+      "path": "protocol.md",
+      "sha256": "7757ea342a5bfcdd1767164a8133e6e56b3dd6134bcf1ce088bf5855e9d6fbd7",
+      "size": 1934
+    },
+    {
+      "path": "archive/codex/2026-04-15/end_of_day_summary.md",
+      "sha256": "7c074dc680202509fbc2e54b25ff8db8bc7197498d31980022b13412a8d9b4a9",
+      "size": 212
+    },
+    {
+      "path": "archive/codex/2026-04-15/message_pairs.md",
+      "sha256": "ad53b25597302db6369dbc38ae27a665d450f8d5485c2a926eef31d60affba03",
+      "size": 277
+    },
+    {
+      "path": "archive/codex/2026-04-15/revival_summary.md",
+      "sha256": "d08faeab0ac512079fb426e369a7bbb5240c92fb7d5e7f6dd852059032c43bca",
+      "size": 272
+    },
+    {
+      "path": "archive/codex/2026-04-15/task_log.md",
+      "sha256": "7fa0399d3e658832b509a006d1794d0e2d173dfbdf78e7913f567a2bf1661741",
+      "size": 277
+    },
+    {
+      "path": "archive/codex/2026-05-04/artifacts/package-fix.md",
+      "sha256": "5be567c66d0c6852f0e234c454998d754debe4a6eb5722d37b76f4f92d222ec8",
+      "size": 1739
+    },
+    {
+      "path": "archive/codex/2026-05-04/task_log.md",
+      "sha256": "f7daf632ef67fa1b01bd1d8ae499212d2d877664f4a275d99d067342472ce322",
+      "size": 659
+    },
+    {
+      "path": "archive/codex/2026-07-19/revival_summary.md",
+      "sha256": "e5edf2e89b44305347f7da32046527dad51d6fd2130fab3e6c70d57a65c38219",
+      "size": 705
+    },
+    {
+      "path": "archive/codex/2026-07-19/task_log.md",
+      "sha256": "ece35dc9aefa2e85f916ad8586fd69c627f32ffd6dbb522cfb00d0fe77ba1aec",
+      "size": 450
+    },
+    {
+      "path": "archive/codex/_agent_rules.md",
+      "sha256": "9176a2116d1dd088f82625b889479aa7398e5fc0ce0cd3898135adece4261b58",
+      "size": 3094
+    },
+    {
+      "path": "archive/codex/code_logics.md",
+      "sha256": "b7a0e36c9f1fbfaca2328f37d2ee32b3c7f55cd691fa6b1b1afb452a4c7ace63",
+      "size": 2046
+    },
+    {
+      "path": "archive/codex/daily_summary.md",
+      "sha256": "e8bb4e0b6cfc395c1f295fbc6ffd9370ab2fdc2d5da096216bfe47a0aa834fc7",
+      "size": 500
+    },
+    {
+      "path": "archive/codex/folder_map.md",
+      "sha256": "02a4c1c3aad3b0bf168db50f96f222fc6a73c5bd34a28cd86441c9f2cded2b9d",
+      "size": 521
+    },
+    {
+      "path": "archive/codex/project_state.md",
+      "sha256": "610574d9b98d9d5bdca8a5f568cb30191767d5ac38aa383534f3069a86593765",
+      "size": 897
+    },
+    {
+      "path": "archive/codex/system_logics.md",
+      "sha256": "1e0a90b213b6f3b80b698343dedc07e97ca62bff0f1d1f9be5bf41fd341e4606",
+      "size": 5144
+    },
+    {
+      "path": "archive/codex/system_prompt.md",
+      "sha256": "4bceb43f2c8f267ef78460122a7ad8eaf651c0b22ca3a5336ed5dbcb2476ad15",
+      "size": 1202
+    }
+  ]
+}

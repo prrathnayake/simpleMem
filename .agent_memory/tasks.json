@@ -1,0 +1,24 @@
+{
+  "active": {},
+  "records": {
+    "20260726T153053819116-6ce1324d": {
+      "finish_fingerprint": "e17fba30111f32a9d54887a73925b4ae763c9d4029a53a01f880a6398e59d129",
+      "path": "2026-07-26/tasks/simplemem-hardening--20260726T153053819116-6ce1324d.md",
+      "record_id": "20260726T153053819116-6ce1324d",
+      "started_at": "2026-07-26T15:30:53+10:00",
+      "status": "completed",
+      "task_id": "simplemem-hardening",
+      "updated_at": "2026-07-26T15:37:48+10:00"
+    },
+    "332ffbc98e415a8bd614b951": {
+      "finish_fingerprint": null,
+      "path": "2026-07-19/tasks/simplemem-0.3.md",
+      "record_id": "332ffbc98e415a8bd614b951",
+      "started_at": "2026-07-19T18:38:28+10:00",
+      "status": "completed",
+      "task_id": "simplemem-0.3",
+      "updated_at": "2026-07-19T18:38:28+10:00"
+    }
+  },
+  "schema_version": 2
+}

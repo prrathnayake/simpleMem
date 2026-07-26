@@ -1,0 +1,13 @@
+{
+  "adapter": "agents-md",
+  "memory_root": ".agent_memory",
+  "retention": {
+    "capture_exact_requests": false,
+    "current_days": 14,
+    "current_max_entries": 40
+  },
+  "schema_version": 2,
+  "search": {
+    "index_version": 1
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "name": "use-simplemem",
+  "version": "0.3.0",
+  "summary": "Maintain durable project memory across agent sessions.",
+  "description": "Start, retrieve, record, hand off, and validate project-local memory through SimpleMem.",
+  "tags": ["memory", "continuity", "handoff", "project-context"],
+  "level": "core",
+  "skill_type": "prompt",
+  "entry_file": "SKILL.md",
+  "suggestion_triggers": ["simplemem", ".agent_memory", "remember project", "resume work", "handoff context"]
+}

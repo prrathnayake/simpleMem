@@ -24,15 +24,15 @@ jobs:
       - name: Install dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -e .
+          pip install -e ".[dev]"
 
       - name: Run simplemem init (idempotent test)
         run: |
-          simplemem init
-          simplemem init
+          simplemem init --project "$RUNNER_TEMP/simplemem-smoke"
+          simplemem init --project "$RUNNER_TEMP/simplemem-smoke"
 
       - name: Run simplemem validate
-        run: simplemem validate
+        run: simplemem validate --project "$RUNNER_TEMP/simplemem-smoke" --strict --json
 
   lint:
     runs-on: ubuntu-latest
@@ -49,7 +49,7 @@ jobs:
         run: pip install ruff
 
       - name: Check code style
-        run: ruff check simplemem/
+        run: ruff check simplemem/ tests/
 
   build:
     runs-on: ubuntu-latest
