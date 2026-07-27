@@ -6,15 +6,16 @@ separate from application runtime memory.
 
 ## Start work
 
-1. Run `simplemem start --task <stable-id>` and provide a concise intent as JSON.
+1. Run `fpm run simplemem -- start --task <stable-id>` and provide a concise
+   intent as JSON.
 2. Read the returned bounded context and source list before changing the project.
-3. Use `simplemem recall <query>` when the current context does not answer a
-   historical question. Do not load the entire memory tree by default.
+3. Use `fpm run simplemem -- recall <query>` when the current context does not
+   answer a historical question. Do not load the entire memory tree by default.
 
 ## During work
 
-- Run `simplemem log --task <id> --status <status>` with structured JSON for
-  decisions, blockers, files, and evidence.
+- Run `fpm run simplemem -- log --task <id> --status <status>` with structured
+  JSON for decisions, blockers, files, and evidence.
 - Put detailed plans, research, and verification under the task's `artifacts/`
   directory and reference them from the task record.
 - Store facts and outcomes, not hidden reasoning or a verbatim conversation.
@@ -22,10 +23,10 @@ separate from application runtime memory.
 
 ## Finish work
 
-1. Run `simplemem finish --task <id>` with the outcome, verification, and next
-   actions.
-2. Confirm `simplemem validate --strict` succeeds. Run `simplemem reindex` if
-   validation reports a stale search index.
+1. Run `fpm run simplemem -- finish --task <id>` with the outcome, verification,
+   and next actions.
+2. Confirm `fpm run simplemem -- validate --strict` succeeds. Run
+   `fpm run simplemem -- reindex` if validation reports a stale search index.
 3. Leave unfinished work explicit so another agent can resume it.
 
 ## Memory layers

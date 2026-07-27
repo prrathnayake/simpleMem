@@ -210,10 +210,12 @@ def _managed_block() -> str:
 Repository-development memory is stored in `.agent_memory/`. It is separate
 from any memory owned by the application being developed.
 
-- At task start, run `simplemem start --task <stable-id>` and read its bounded context.
-- Use `simplemem recall <query>` for targeted historical knowledge.
-- Record only high-signal decisions, blockers, files, and evidence with `simplemem log`.
-- Before finishing, run `simplemem finish` and `simplemem validate --strict`.
+- At task start, run `fpm run simplemem -- start --task <stable-id>` and read its bounded context.
+- Use `fpm run simplemem -- recall <query>` for targeted historical knowledge.
+- Record only high-signal decisions, blockers, files, and evidence with
+  `fpm run simplemem -- log`.
+- Before finishing, run `fpm run simplemem -- finish` and
+  `fpm run simplemem -- validate --strict`.
 - Never store secrets. Exact user requests are opt-in only.
 
 The complete protocol is in `.agent_memory/protocol.md`.
@@ -1278,10 +1280,11 @@ def _build_context_bundle_unlocked(
         title="Memory protocol",
         source=".agent_memory/protocol.md",
         content=(
-            "Protocol: `.agent_memory/protocol.md`. Use `simplemem recall <query>` "
-            "for targeted history. Record high-signal "
-            "progress with `simplemem log`; finish with `simplemem finish` and "
-            "`simplemem validate --strict`. Exact requests are opt-in."
+            "Protocol: `.agent_memory/protocol.md`. Use "
+            "`fpm run simplemem -- recall <query>` for targeted history. Record "
+            "high-signal progress with `fpm run simplemem -- log`; finish with "
+            "`fpm run simplemem -- finish` and "
+            "`fpm run simplemem -- validate --strict`. Exact requests are opt-in."
         ),
         budget=budget,
         cap=500,

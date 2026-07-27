@@ -6,5 +6,5 @@
 
 ## Active Context
 
-- Run `simplemem context` or `simplemem recall <query>` for relevant history.
-
+- Run `fpm run simplemem -- context` or `fpm run simplemem -- recall <query>` for
+  relevant history.

@@ -84,6 +84,25 @@ def test_agents_adapter_preserves_guidance_and_is_idempotent(tmp_path: Path) -> 
     assert content.count(MANAGED_END) == 1
     assert ".agent_memory" in content
     assert ".codex_memories" not in content
+    assert "fpm run simplemem -- start" in content
+    assert "`simplemem start" not in content
+
+
+def test_generated_protocol_uses_supported_fpm_command(tmp_path: Path) -> None:
+    init_project(tmp_path)
+    root = memory_root(tmp_path)
+    protocol = (root / "protocol.md").read_text(encoding="utf-8")
+    revival = next(root.glob("????-??-??/revival_summary.md")).read_text(
+        encoding="utf-8"
+    )
+    end_of_day = next(root.glob("????-??-??/end_of_day_summary.md")).read_text(
+        encoding="utf-8"
+    )
+
+    assert "fpm run simplemem -- start" in protocol
+    assert "fpm run simplemem -- recall" in revival
+    assert "fpm run simplemem -- finish" in end_of_day
+    assert "`simplemem " not in protocol
 
 
 def test_adapter_can_be_disabled_without_deleting_project_guidance(tmp_path: Path) -> None:

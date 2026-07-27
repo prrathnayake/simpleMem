@@ -27,3 +27,16 @@ actions. Durable details remain in dated task records and monthly indexes.
 - Next: Review and commit each repository independently
 - Record: `.agent_memory/2026-07-26/tasks/simplemem-hardening--20260726T153053819116-6ce1324d.md`
 <!-- /simplemem:entry -->
+
+<!-- simplemem:entry -->
+## 2026-07-27T16:59:39+10:00 — repair-simplemem-cli [completed]
+
+- Date: 2026-07-27
+- Task: repair-simplemem-cli
+- Record ID: 20260727T165455310971-c3fa84d6
+- Outcome: Restored the SimpleMem CLI and aligned generated agent instructions with the supported FPM runtime.
+- Verification: 28 pytest tests passed; ruff check simplemem tests passed; strict memory validation passed; simplemem --help resolved from PATH as repository version 0.3.0; FPM pack/install/lifecycle integration passed in the test suite
+- Blockers: None.
+- Next: None.
+- Record: `.agent_memory/2026-07-27/tasks/repair-simplemem-cli--20260727T165455310971-c3fa84d6.md`
+<!-- /simplemem:entry -->

@@ -1,5 +1,5 @@
 {
-  "entries": 97,
+  "entries": 107,
   "index_version": 1,
   "schema_version": 2,
   "sources": [
@@ -34,14 +34,29 @@
       "size": 1175
     },
     {
+      "path": "2026-07-27/end_of_day_summary.md",
+      "sha256": "f884f4ef3becf353a9d501b540472f1079b192e074dc4f01739a409f9e13d71c",
+      "size": 384
+    },
+    {
+      "path": "2026-07-27/revival_summary.md",
+      "sha256": "fd49cd562a0a129ea2b4ea43cda4d049c08e55ac81ef07286aa5349e426e2837",
+      "size": 537
+    },
+    {
+      "path": "2026-07-27/tasks/repair-simplemem-cli--20260727T165455310971-c3fa84d6.md",
+      "sha256": "578d9c1836c8b1b56419aa6df018da4c764fa34cc4c50fe0d4f35084ad44b0e3",
+      "size": 1463
+    },
+    {
       "path": "codebase.md",
       "sha256": "ab9088a53220b31769595e7ae37bb8438261237884719373745709857dcb1de0",
       "size": 1487
     },
     {
       "path": "current.md",
-      "sha256": "b46a4b50db555714d54ec2de20d7741b1c18806d12eb04930fe8c65189a3ceb4",
-      "size": 1557
+      "sha256": "4321ca755d9398d5cb40163217db001f1e54729ddfcd11e62995ac55ac6cf171",
+      "size": 2247
     },
     {
       "path": "project_state.md",
@@ -50,8 +65,8 @@
     },
     {
       "path": "protocol.md",
-      "sha256": "7757ea342a5bfcdd1767164a8133e6e56b3dd6134bcf1ce088bf5855e9d6fbd7",
-      "size": 1934
+      "sha256": "615ff3fe3aeb1bc53eaa04862b9b6849be133168a10801658e58c41360f6ee34",
+      "size": 2003
     },
     {
       "path": "archive/codex/2026-04-15/end_of_day_summary.md",
