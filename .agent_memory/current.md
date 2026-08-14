@@ -4,39 +4,14 @@ This is a bounded, CLI-maintained view of recent outcomes, blockers, and next
 actions. Durable details remain in dated task records and monthly indexes.
 
 <!-- simplemem:entry -->
-## 2026-07-19T18:46:52+10:00 — simplemem-0.3 [completed]
+## 2026-08-14T10:17:45+10:00 — friday-memory-stress-audit [completed]
 
-- Date: 2026-07-19
-- Task: simplemem-0.3
-- Outcome: SimpleMem 0.3 universal agent memory redesign and required FPM support implemented
-- Verification: 18 SimpleMem tests passed; 68 FPM tests passed; clean FPM pack/install/lifecycle integration passed; skill quick validation passed; three fresh-agent scenarios passed
-- Blockers: None.
-- Next: Review and commit each repository independently; Migrate live F.R.I.D.A.Y only under a separate explicit request
-- Record: `.agent_memory/2026-07-19/tasks/simplemem-0.3.md`
-<!-- /simplemem:entry -->
-
-<!-- simplemem:entry -->
-## 2026-07-26T15:37:48+10:00 — simplemem-hardening [completed]
-
-- Date: 2026-07-26
-- Task: simplemem-hardening
-- Record ID: 20260726T153053819116-6ce1324d
-- Outcome: Hardened SimpleMem schema 2 and migrated F.R.I.D.A.Y repository memory losslessly
-- Verification: 27 SimpleMem tests passed; Ruff passed; FPM pack/install/lifecycle integration passed; F.R.I.D.A.Y archive recall and strict validation passed; F.R.I.D.A.Y focused onboarding/prompt tests: 32 passed; Notion Repository Agent Memory Protocol page created and verified
-- Blockers: None.
-- Next: Review and commit each repository independently
-- Record: `.agent_memory/2026-07-26/tasks/simplemem-hardening--20260726T153053819116-6ce1324d.md`
-<!-- /simplemem:entry -->
-
-<!-- simplemem:entry -->
-## 2026-07-27T16:59:39+10:00 — repair-simplemem-cli [completed]
-
-- Date: 2026-07-27
-- Task: repair-simplemem-cli
-- Record ID: 20260727T165455310971-c3fa84d6
-- Outcome: Restored the SimpleMem CLI and aligned generated agent instructions with the supported FPM runtime.
-- Verification: 28 pytest tests passed; ruff check simplemem tests passed; strict memory validation passed; simplemem --help resolved from PATH as repository version 0.3.0; FPM pack/install/lifecycle integration passed in the test suite
-- Blockers: None.
-- Next: None.
-- Record: `.agent_memory/2026-07-27/tasks/repair-simplemem-cli--20260727T165455310971-c3fa84d6.md`
+- Date: 2026-08-14
+- Task: friday-memory-stress-audit
+- Record ID: 20260814T101614200038-07d57449
+- Outcome: Completed read-only source audit and safe adversarial probes. Identified production blockers in memory worker queue accounting/timeouts, graph cross-namespace relationship validation and concurrent idempotency, message-chain session isolation, non-atomic file persistence, replay lineage cleanup, and low-signal episodic graph admission.
+- Verification: 40 focused kernel tests passed; 118 memory pipeline tests passed, 1 skipped; 28 SimpleMem tests passed; Four targeted adversarial probes reproduced queue exhaustion, session mixing, graph cross-user edge injection, and concurrent duplicate commits
+- Blockers: No live multi-user gateway or provider-backed soak was run in this scoped audit
+- Next: Add failing regression tests for each verified blocker before fixes; Make graph proposal validation transactional and namespace-aware; Replace or correctly consume MemoryThreadPool queue and enforce per-job deadlines; Add session_id to message-chain read predicates and composite indexes; Add atomic writes/checksums/quarantine diagnostics for corrupt memory files; Separate raw episodic audit history from default relationship retrieval or apply noise/type filters
+- Record: `.agent_memory/2026-08-14/tasks/friday-memory-stress-audit--20260814T101614200038-07d57449.md`
 <!-- /simplemem:entry -->

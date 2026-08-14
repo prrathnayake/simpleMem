@@ -1,5 +1,5 @@
 {
-  "entries": 107,
+  "entries": 113,
   "index_version": 1,
   "schema_version": 2,
   "sources": [
@@ -49,14 +49,29 @@
       "size": 1463
     },
     {
+      "path": "2026-08-14/end_of_day_summary.md",
+      "sha256": "888209ab595ebb91a3e89cff45eaac40af5b8a3fe165165bbbed98ecd4332cd7",
+      "size": 634
+    },
+    {
+      "path": "2026-08-14/revival_summary.md",
+      "sha256": "0a20a1f9e3bcea1b41e4f609de85a031c0907f01c83e814169b8878924de61c2",
+      "size": 557
+    },
+    {
+      "path": "2026-08-14/tasks/friday-memory-stress-audit--20260814T101614200038-07d57449.md",
+      "sha256": "5351ab85527cd3149b1c49da70a5451441b24282e585d7401ab9528d7a5f08a4",
+      "size": 2748
+    },
+    {
       "path": "codebase.md",
       "sha256": "ab9088a53220b31769595e7ae37bb8438261237884719373745709857dcb1de0",
       "size": 1487
     },
     {
       "path": "current.md",
-      "sha256": "4321ca755d9398d5cb40163217db001f1e54729ddfcd11e62995ac55ac6cf171",
-      "size": 2247
+      "sha256": "52f886c49867daa2232ced8fb192a7fbe8e71efccd72a9253549df3fed5aa209",
+      "size": 1679
     },
     {
       "path": "project_state.md",
