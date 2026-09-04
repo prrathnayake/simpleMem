@@ -9,8 +9,23 @@ __pycache__/
 *.py[cod]
 *$py.class
 .pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+.nox/
+.hypothesis/
+.venv/
+venv/
 .coverage
+.coverage.*
+coverage.xml
 htmlcov/
+
+# Local configuration and logs
+.env
+.env.*
+!.env.example
+*.log
 
 # IDE
 .idea/

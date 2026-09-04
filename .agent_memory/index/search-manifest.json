@@ -1,5 +1,5 @@
 {
-  "entries": 113,
+  "entries": 118,
   "index_version": 1,
   "schema_version": 2,
   "sources": [
@@ -64,14 +64,29 @@
       "size": 2748
     },
     {
+      "path": "2026-09-04/end_of_day_summary.md",
+      "sha256": "19bc151be212220d0515dae367294d108c07e41b3e27b274224106b21a117b1a",
+      "size": 414
+    },
+    {
+      "path": "2026-09-04/revival_summary.md",
+      "sha256": "13d55a64290b213f1840791dd74bdd85f9ab6cd69696fe9320aa32d8cb57e749",
+      "size": 807
+    },
+    {
+      "path": "2026-09-04/tasks/repo-hygiene-2026-09-04--20260904T142044429000-3d383b5d.md",
+      "sha256": "891c8720b851b00f6758a4a6276d752da64ec8188d6efab4f35391e4c8bf9e6c",
+      "size": 676
+    },
+    {
       "path": "codebase.md",
       "sha256": "ab9088a53220b31769595e7ae37bb8438261237884719373745709857dcb1de0",
       "size": 1487
     },
     {
       "path": "current.md",
-      "sha256": "52f886c49867daa2232ced8fb192a7fbe8e71efccd72a9253549df3fed5aa209",
-      "size": 1679
+      "sha256": "cc1138ce63140e46bb34dd489264836d27d17a12951a8e0dfd59958873a4f4e6",
+      "size": 743
     },
     {
       "path": "project_state.md",
