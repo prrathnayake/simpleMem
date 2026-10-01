@@ -343,6 +343,50 @@ def test_finish_is_idempotent_and_rejects_conflicting_terminal_update(
         finish_task(project, "idempotent", payload={"outcome": "Changed"})
 
 
+@pytest.mark.parametrize("terminal_status", ["completed", "failed"])
+def test_terminal_progress_log_can_receive_its_first_final_outcome(
+    project: Path, terminal_status: str,
+) -> None:
+    started = start_task(project, "terminal-log", {"intent": "Preserve progress"})
+    logged = log_task(project, "terminal-log", terminal_status, {"summary": "Evidence retained"})
+    payload = {"outcome": "Verified result", "verification": ["readback passed"]}
+    finished = finish_task(project, "terminal-log", terminal_status, payload)
+    assert finished["record_id"] == logged["record_id"] == started["record_id"]
+    content = (project / finished["task_file"]).read_text(encoding="utf-8")
+    assert "Evidence retained" in content
+    assert content.count("## Final Outcome") == 1
+    assert "Verified result" in content
+    assert finish_task(project, "terminal-log", terminal_status, payload)["idempotent"] is True
+    with pytest.raises(ValueError, match="different outcome"):
+        finish_task(project, "terminal-log", terminal_status, {"outcome": "Changed"})
+    assert validate(project, strict=True)["valid"] is True
+
+
+@pytest.mark.parametrize("requested_status", ["in-progress", "failed"])
+def test_terminal_progress_finalization_cannot_change_terminal_status(
+    project: Path, requested_status: str,
+) -> None:
+    started = start_task(project, "terminal-log", {})
+    log_task(project, "terminal-log", "completed", {})
+    before = (project / started["task_file"]).read_bytes()
+    with pytest.raises(ValueError, match="different outcome"):
+        finish_task(project, "terminal-log", requested_status, {"outcome": "Changed"})
+    assert (project / started["task_file"]).read_bytes() == before
+
+
+def test_legacy_final_outcome_without_fingerprint_remains_immutable(project: Path) -> None:
+    start_task(project, "legacy-final", {})
+    finished = finish_task(project, "legacy-final", payload={"outcome": "Original"})
+    registry_path = memory_root(project) / "tasks.json"
+    registry = json.loads(registry_path.read_text(encoding="utf-8"))
+    for record in registry["records"].values():
+        if record["record_id"] == finished["record_id"]:
+            record.pop("finish_fingerprint", None)
+    registry_path.write_text(json.dumps(registry), encoding="utf-8")
+    with pytest.raises(ValueError, match="different outcome"):
+        finish_task(project, "legacy-final", payload={"outcome": "Replacement"})
+
+
 def test_strict_validation_rejects_stale_index(project: Path) -> None:
     state = memory_root(project) / "project_state.md"
     state.write_text(state.read_text(encoding="utf-8") + "\n- New manual fact.\n", encoding="utf-8")

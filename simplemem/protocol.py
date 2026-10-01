@@ -774,9 +774,22 @@ def finish_task(
                     "idempotent": True,
                 }
             if record.get("status") in TERMINAL_STATUSES:
-                raise ValueError(
-                    f"task already finished with different outcome: {task_id}"
+                # A terminal progress log closes activity without writing a final
+                # outcome. Allow its first finish, preserving the same status;
+                # legacy final records without fingerprints remain immutable.
+                pending_final_outcome = (
+                    record.get("status") == status
+                    and not record.get("finish_fingerprint")
+                    and not re.search(
+                        r"^## Final Outcome\s*$",
+                        task_path.read_text(encoding="utf-8"),
+                        re.MULTILINE,
+                    )
                 )
+                if not pending_final_outcome:
+                    raise ValueError(
+                        f"task already finished with different outcome: {task_id}"
+                    )
         outcome = str(payload.get("outcome") or "No outcome supplied.").strip()
         verification = _payload_list(payload, "verification")
         next_actions = _payload_list(payload, "next_actions")

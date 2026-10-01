@@ -30,6 +30,11 @@ printf '%s' '{"outcome":"Recovery fixed","verification":["18 tests passed"]}' |
   fpm run simplemem -- finish --task session-recovery --input -
 ```
 
+If progress was logged with `completed` or `failed`, run `finish` with that
+same status to add its first final outcome and indexes. This preserves progress
+history. Repeating an identical finish is safe; changing an existing final
+outcome or reopening a terminal record is rejected.
+
 Other commands:
 
 - `context [query]`: build a bounded context bundle.
