@@ -54,5 +54,5 @@ def test_fpm_pack_produces_portable_release_input(tmp_path: Path) -> None:
         assert manifest_stream is not None
         manifest = json.load(manifest_stream)
     assert manifest["name"] == "simplemem"
-    assert manifest["version"] == "0.3.0"
+    assert manifest["version"] == "0.3.1"
     assert manifest["commands"]["simplemem"]["entry"] == "simplemem.cli:main"
