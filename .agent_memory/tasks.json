@@ -37,6 +37,33 @@
       "task_id": "repo-hygiene-2026-09-04",
       "updated_at": "2026-09-04T14:23:57+10:00"
     },
+    "20261001T220147400081-05b80152": {
+      "finish_fingerprint": "f8fea47ecbc010296681ae300bf114d77029f0ab140c59bb50de88539609f9cc",
+      "path": "2026-10-01/tasks/terminal-progress-finalization-20261001--20261001T220147400081-05b80152.md",
+      "record_id": "20261001T220147400081-05b80152",
+      "started_at": "2026-10-01T22:01:47+10:00",
+      "status": "completed",
+      "task_id": "terminal-progress-finalization-20261001",
+      "updated_at": "2026-10-01T22:02:51+10:00"
+    },
+    "20261001T220520190430-0b59e911": {
+      "finish_fingerprint": "ac3baea37fdc4478856229db8b4f98cf5a7cb2450682c053b5fd998d8b2e7eab",
+      "path": "2026-10-01/tasks/deploy-terminal-finalization-20261001--20261001T220520190430-0b59e911.md",
+      "record_id": "20261001T220520190430-0b59e911",
+      "started_at": "2026-10-01T22:05:20+10:00",
+      "status": "completed",
+      "task_id": "deploy-terminal-finalization-20261001",
+      "updated_at": "2026-10-01T22:07:16+10:00"
+    },
+    "20261018T082759172704-0737f60a": {
+      "finish_fingerprint": "fd54adc599c7ef64233fda7121a0357fea311e6659a3b3094ff5511297dc05f1",
+      "path": "2026-10-18/tasks/publication-memory-20261018--20261018T082759172704-0737f60a.md",
+      "record_id": "20261018T082759172704-0737f60a",
+      "started_at": "2026-10-18T08:27:59+11:00",
+      "status": "completed",
+      "task_id": "publication-memory-20261018",
+      "updated_at": "2026-10-18T08:31:05+11:00"
+    },
     "332ffbc98e415a8bd614b951": {
       "finish_fingerprint": null,
       "path": "2026-07-19/tasks/simplemem-0.3.md",

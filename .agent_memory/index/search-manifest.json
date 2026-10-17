@@ -1,5 +1,5 @@
 {
-  "entries": 118,
+  "entries": 134,
   "index_version": 1,
   "schema_version": 2,
   "sources": [
@@ -79,14 +79,49 @@
       "size": 676
     },
     {
+      "path": "2026-10-01/end_of_day_summary.md",
+      "sha256": "d8bb77df135ce47346a7c9438b23cfded3dcc44325a7341a128404f7c9d7f9c3",
+      "size": 900
+    },
+    {
+      "path": "2026-10-01/revival_summary.md",
+      "sha256": "96db078032180344db024488311e06426c4e8c27ed500796125866287e37f9f6",
+      "size": 587
+    },
+    {
+      "path": "2026-10-01/tasks/deploy-terminal-finalization-20261001--20261001T220520190430-0b59e911.md",
+      "sha256": "95c9443920e662454d85501e294421afcfaad6dbea5aab6821fef0235a0a4c14",
+      "size": 1463
+    },
+    {
+      "path": "2026-10-01/tasks/terminal-progress-finalization-20261001--20261001T220147400081-05b80152.md",
+      "sha256": "311ae4263606482818781b116d1bc47a94a5c61fb3cc373107f4b4fba1d5db5d",
+      "size": 912
+    },
+    {
+      "path": "2026-10-18/end_of_day_summary.md",
+      "sha256": "205b76b80789b817af516adf81d613782d1b1261d62acb20b3458f4f00284784",
+      "size": 444
+    },
+    {
+      "path": "2026-10-18/revival_summary.md",
+      "sha256": "69ae469a4b6c00ed186ddcc67ff54a97b8d1c200e509d54053cb4ad62248f92a",
+      "size": 1073
+    },
+    {
+      "path": "2026-10-18/tasks/publication-memory-20261018--20261018T082759172704-0737f60a.md",
+      "sha256": "8bb63654581395860ada61ac6fb87fb89f3beedee50d3631f25db7d93d11ce4c",
+      "size": 747
+    },
+    {
       "path": "codebase.md",
       "sha256": "ab9088a53220b31769595e7ae37bb8438261237884719373745709857dcb1de0",
       "size": 1487
     },
     {
       "path": "current.md",
-      "sha256": "cc1138ce63140e46bb34dd489264836d27d17a12951a8e0dfd59958873a4f4e6",
-      "size": 743
+      "sha256": "da4c107ee97a048782b409cadc0e64e68ef24aadc694e11c7642478f16abb50d",
+      "size": 873
     },
     {
       "path": "project_state.md",
